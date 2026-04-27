@@ -1,0 +1,156 @@
+"use client";
+
+import { useRef } from "react";
+import { motion } from "framer-motion";
+
+const destinations = [
+  {
+    name: "Токио",
+    nameEn: "Tokyo",
+    country: "Япон",
+    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=85",
+    tagline: "Гэрэл ба уламжлал",
+    color: "#B8860B",
+  },
+  {
+    name: "Истанбул",
+    nameEn: "Istanbul",
+    country: "Турк",
+    image: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800&q=85",
+    tagline: "Дорнод Барууны уулзвар",
+    color: "#B8860B",
+  },
+  {
+    name: "Бангкок",
+    nameEn: "Bangkok",
+    country: "Тайланд",
+    image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=85",
+    tagline: "Амьдрал дүүрэн хот",
+    color: "#B8860B",
+  },
+  {
+    name: "Шанхай",
+    nameEn: "Shanghai",
+    country: "Хятад",
+    image: "https://images.unsplash.com/photo-1545156521-77bd85671d30?w=800&q=85",
+    tagline: "Ирээдүйн хот",
+    color: "#B8860B",
+  },
+  {
+    name: "Хайнань",
+    nameEn: "Hainan",
+    country: "Хятад",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=85",
+    tagline: "Тропик диваажин",
+    color: "#B8860B",
+  },
+  {
+    name: "Бээжин",
+    nameEn: "Beijing",
+    country: "Хятад",
+    image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=85",
+    tagline: "5000 жилийн түүх",
+    color: "#B8860B",
+  },
+];
+
+function DestinationCard({ dest, index }: { dest: typeof destinations[0]; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="group relative flex-none w-65 md:w-80 h-100 md:h-115 rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-500"
+    >
+      <div
+        className="absolute inset-0 bg-center bg-cover transition-transform duration-700 group-hover:scale-110"
+        style={{ backgroundImage: `url(${dest.image})` }}
+      />
+      <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/15 to-transparent" />
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ background: `linear-gradient(to top, rgba(184,134,11,0.25), transparent)` }}
+      />
+
+      <div className="absolute inset-x-0 bottom-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+        <p className="text-[10px] tracking-[0.35em] uppercase mb-1.5 text-gold-light">
+          {dest.country}
+        </p>
+        <h3 className="font-display text-2xl font-light text-white leading-none">
+          {dest.name}
+        </h3>
+        <p className="text-[11px] text-gold-light/70 font-light mt-0.5">{dest.nameEn}</p>
+        <p className="text-sm text-white/70 font-light mt-2 opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500">
+          {dest.tagline}
+        </p>
+        <div className="mt-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500 delay-75">
+          <span className="text-[11px] tracking-[0.2em] uppercase text-gold-light">Үзэх</span>
+          <div className="w-6 h-px bg-gold-light" />
+        </div>
+      </div>
+
+      <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 scale-75 group-hover:scale-100 shadow-md">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 6h8M6 2l4 4-4 4" stroke="#B8860B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Destinations() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollBy({ left: dir === "right" ? 380 : -380, behavior: "smooth" });
+  };
+
+  return (
+    <section id="destinations" className="py-24 overflow-hidden bg-[#FAFAF8]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="flex items-end justify-between mb-12">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.8 }}
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-8 h-px bg-gold" />
+              <span className="text-[11px] tracking-[0.35em] uppercase text-gold">Аяллын очир</span>
+            </div>
+            <h2 className="font-display text-4xl md:text-5xl font-light leading-tight text-[#1A1A1A]">
+              Алдарт<br />
+              <em className="italic gold-text">Очирууд</em>
+            </h2>
+            <p className="text-xs text-[#aaa] mt-1 tracking-wider">Iconic Destinations</p>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="hidden md:flex gap-3">
+            <button onClick={() => scroll("left")} className="w-11 h-11 rounded-full card-light hover:border-gold/30 transition-all duration-300 flex items-center justify-center group">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                <path d="M10 3l-5 5 5 5" stroke="#555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-[#B8860B] transition-colors"/>
+              </svg>
+            </button>
+            <button onClick={() => scroll("right")} className="w-11 h-11 rounded-full card-light hover:border-gold/30 transition-all duration-300 flex items-center justify-center group">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                <path d="M6 3l5 5-5 5" stroke="#555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-[#B8860B] transition-colors"/>
+              </svg>
+            </button>
+          </motion.div>
+        </div>
+      </div>
+
+      <div
+        ref={scrollRef}
+        className="flex gap-4 px-6 lg:px-10 overflow-x-auto no-scrollbar pb-4"
+        style={{ paddingLeft: "max(1.5rem, calc((100vw - 80rem) / 2 + 2.5rem))" }}
+      >
+        {destinations.map((dest, i) => (
+          <DestinationCard key={dest.name} dest={dest} index={i} />
+        ))}
+        <div className="flex-none w-6" />
+      </div>
+    </section>
+  );
+}
