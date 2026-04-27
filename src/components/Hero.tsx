@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const scenes = [
-  { bg: "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=1920&q=80", location: "Токио, Япон" },
-  { bg: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1920&q=80", location: "Истанбул, Турк" },
-  { bg: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?w=1920&q=80", location: "Бангкок, Тайланд" },
-  { bg: "https://images.unsplash.com/photo-1545156521-77bd85671d30?w=1920&q=80", location: "Шанхай, Хятад" },
+  { bg: "/destinations/tokyo-shibuya.jpg", location: "Токио, Япон" },
+  { bg: "/destinations/cappadocia.jpg", location: "Каппадок, Турк" },
+  { bg: "/destinations/bangkok-temple.jpg", location: "Бангкок, Тайланд" },
+  { bg: "/destinations/shanghai.jpg", location: "Шанхай, Хятад" },
 ];
 
 export default function Hero() {
