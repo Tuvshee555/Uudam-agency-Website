@@ -137,48 +137,41 @@ const features = [
 
 export default function Experience() {
   return (
-    <section
-      id="about"
-      className="py-24 justify-center items-center px-6 lg:px-10 bg-white"
-    >
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="ui-section bg-white">
+      <div className="ui-container">
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-14 md:mb-16"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-8 h-px bg-gold" />
-            <span className="text-[11px] tracking-[0.35em] uppercase text-gold">
-              Яагаад Уудам вэ
-            </span>
-            <div className="w-8 h-px bg-gold" />
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <div className="w-10 h-px bg-gold" />
+            <span className="text-[11px] tracking-[0.35em] uppercase text-gold font-medium">Яагаад Уудам вэ</span>
+            <div className="w-10 h-px bg-gold" />
           </div>
-          <h2 className="font-display text-4xl md:text-5xl font-light leading-tight text-[#1A1A1A]">
+          <h2 className="font-display text-4xl md:text-[3.5rem] font-medium leading-tight text-[#1A1A1A] mb-2">
             Зүгээр аялал биш —
             <br />
             <em className="italic gold-text">Туршлага</em>
           </h2>
-          <p className="text-xs text-[#bbb] mt-1 tracking-wider">
-            Not Just a Trip — An Experience
-          </p>
-          <p className="mt-5 text-[#666] font-light leading-relaxed text-base max-w-xl mx-auto">
-            Монголоос дэлхийг аялах урлагийг боловсронгуй болгоход бид арав
-            гаруй жил зарцуулсан. Олон мянган монгол гэр бүл бидэнд итгэн
-            аялсаар байна.
+          <p className="text-xs text-[#bbb] tracking-[0.2em] uppercase mb-6">Not Just a Trip — An Experience</p>
+          <p className="text-[#666] font-light leading-relaxed text-base max-w-2xl mx-auto">
+            Монголоос дэлхийг аялах урлагийг боловсронгуй болгоход бид арав гаруй жил зарцуулсан.
+            Олон мянган монгол гэр бүл бидэнд итгэн аялсаар байна.
           </p>
           <a
             href="#contact"
-            className="mt-6 inline-flex items-center gap-3 text-[13px] tracking-wide uppercase text-gold hover:text-gold-light transition-colors group"
+            className="mt-8 inline-flex items-center gap-3 text-[13px] tracking-widest uppercase text-gold hover:text-gold-light transition-colors group"
           >
             <span>Мэргэжилтэнтэй ярилцах</span>
-            <div className="w-8 h-px bg-gold group-hover:w-12 transition-all duration-300" />
+            <div className="w-8 h-px bg-gold group-hover:w-14 transition-all duration-300" />
           </a>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-14 md:mb-16">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -186,22 +179,18 @@ export default function Experience() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="rounded-2xl p-6 bg-[#F9F5EC] border border-[#E8DFC8] text-center"
+              className="rounded-2xl p-7 md:p-8 bg-[#F9F5EC] border border-[#E8DFC8] text-center"
             >
-              <p className="font-display text-4xl font-light leading-none gold-text">
+              <p className="font-display text-4xl md:text-5xl font-bold leading-none gold-text mb-3">
                 {stat.value}
               </p>
-              <p className="text-[13px] text-[#555] mt-2 font-medium">
-                {stat.label}
-              </p>
-              <p className="text-[10px] text-[#bbb] tracking-wider mt-0.5">
-                {stat.sub}
-              </p>
+              <p className="text-[15px] text-[#333] font-semibold">{stat.label}</p>
+              <p className="text-[11px] text-[#bbb] tracking-wider mt-1">{stat.sub}</p>
             </motion.div>
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {features.map((feat, i) => (
             <motion.div
               key={feat.title}
@@ -209,20 +198,14 @@ export default function Experience() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ delay: i * 0.08, duration: 0.7 }}
-              className="group card-light rounded-2xl p-7 hover:border-gold/25 hover:shadow-md transition-all duration-500"
+              className="group card-light rounded-2xl p-8 md:p-9 hover:border-gold/25 hover:shadow-md transition-all duration-500"
             >
-              <div className="mb-4 w-11 h-11 rounded-xl bg-[#F9F5EC] border border-[#E8DFC8] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <div className="mb-5 w-12 h-12 rounded-xl bg-[#F9F5EC] border border-[#E8DFC8] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 {feat.icon}
               </div>
-              <h3 className="text-[15px] font-semibold text-[#1A1A1A] mb-0.5">
-                {feat.title}
-              </h3>
-              <p className="text-[10px] text-[#bbb] tracking-wider mb-3">
-                {feat.sub}
-              </p>
-              <p className="text-[13px] text-[#777] font-light leading-relaxed">
-                {feat.desc}
-              </p>
+              <h3 className="text-[18px] font-semibold text-[#1A1A1A] mb-1">{feat.title}</h3>
+              <p className="text-[11px] text-[#aaa] tracking-wider mb-3 uppercase">{feat.sub}</p>
+              <p className="text-[14px] text-[#666] font-light leading-relaxed">{feat.desc}</p>
             </motion.div>
           ))}
         </div>

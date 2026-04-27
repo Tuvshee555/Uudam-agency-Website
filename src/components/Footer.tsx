@@ -42,8 +42,8 @@ const socials = [
 export default function Footer() {
   return (
     <footer className="bg-[#F5F0E6] border-t border-[#E8DFC8]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-10">
-        <div className="grid lg:grid-cols-5 gap-10 mb-14">
+      <div className="ui-container pt-16 pb-10">
+        <div className="grid lg:grid-cols-5 gap-10 lg:gap-12 mb-14">
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex flex-col leading-none mb-6">
               <span className="font-display text-2xl font-light tracking-[0.15em] gold-text">УУДАМ</span>
@@ -112,3 +112,4 @@ export default function Footer() {
     </footer>
   );
 }
+

@@ -108,9 +108,9 @@ export default function Destinations() {
   };
 
   return (
-    <section id="destinations" className="py-24 overflow-hidden bg-[#FAFAF8]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="flex items-end justify-between mb-12">
+    <section id="destinations" className="ui-section overflow-hidden bg-[#FAFAF8]">
+      <div className="ui-container">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
           <motion.div
             initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.8 }}
@@ -143,8 +143,8 @@ export default function Destinations() {
 
       <div
         ref={scrollRef}
-        className="flex gap-4 px-6 lg:px-10 overflow-x-auto no-scrollbar pb-4"
-        style={{ paddingLeft: "max(1.5rem, calc((100vw - 80rem) / 2 + 2.5rem))" }}
+        className="ui-container flex gap-6 overflow-x-auto no-scrollbar pb-4"
+        
       >
         {destinations.map((dest, i) => (
           <DestinationCard key={dest.name} dest={dest} index={i} />
@@ -154,3 +154,4 @@ export default function Destinations() {
     </section>
   );
 }
+

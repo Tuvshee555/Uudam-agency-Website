@@ -113,3 +113,31 @@ body {
 .animate-marquee {
   animation: marquee 30s linear infinite;
 }
+
+.ui-container {
+  width: min(100%, 1200px);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 768px) {
+  .ui-container {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ui-container {
+    padding-inline: 2rem;
+  }
+}
+
+.ui-section {
+  padding-block: 4rem;
+}
+
+@media (min-width: 768px) {
+  .ui-section {
+    padding-block: 5rem;
+  }
+}

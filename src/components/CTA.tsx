@@ -54,11 +54,11 @@ const channels = [
 
 export default function CTA() {
   return (
-    <section id="contact" className="py-24 px-6 lg:px-10 relative overflow-hidden bg-[#FAFAF8]">
+    <section id="contact" className="ui-section relative overflow-hidden bg-[#FAFAF8]">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(184,134,11,0.05),transparent)]" />
       <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-gold/20 to-transparent" />
 
-      <div className="relative z-10 max-w-4xl mx-auto">
+      <div className="relative z-10 ui-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -88,7 +88,7 @@ export default function CTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="grid sm:grid-cols-3 gap-4"
+          className="grid sm:grid-cols-3 gap-6 lg:gap-8"
         >
           {channels.map((ch) => (
             <motion.a
@@ -99,7 +99,7 @@ export default function CTA() {
               whileHover={{ y: -5, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
-              className="flex flex-col items-center gap-4 p-8 rounded-2xl text-center"
+              className="flex flex-col items-center justify-center gap-4 p-8 rounded-2xl text-center min-h-44"
               style={{ background: ch.bg, border: ch.border, boxShadow: ch.shadow, color: ch.textColor }}
             >
               <div
@@ -140,3 +140,4 @@ export default function CTA() {
     </section>
   );
 }
+

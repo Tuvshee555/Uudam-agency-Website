@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const scenes = [
@@ -13,12 +13,10 @@ const scenes = [
 export default function Hero() {
   const [current, setCurrent] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 800], ["0%", "30%"]);
+  const opacity = useTransform(scrollY, [0, 480], [1, 0]);
+  const scale = useTransform(scrollY, [0, 800], [1, 1.08]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -29,7 +27,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative h-screen min-h-[680px] overflow-hidden">
+    <section className="relative h-screen min-h-170 overflow-hidden">
       {scenes.map((scene, i) => (
         <motion.div
           key={i}
@@ -44,7 +42,7 @@ export default function Hero() {
         </motion.div>
       ))}
 
-      <motion.div className="relative z-10 h-full flex flex-col justify-end pb-24 px-6 lg:px-16 max-w-7xl mx-auto" style={{ opacity }}>
+      <motion.div className="ui-container relative z-10 h-full flex flex-col justify-end pb-24" style={{ opacity }}>
         <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -84,14 +82,14 @@ export default function Hero() {
           >
             <a
               href="#packages"
-              className="px-7 py-3.5 rounded-full text-[13px] tracking-wide font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_30px_rgba(184,134,11,0.4)]"
+              className="inline-flex min-h-12 items-center justify-center px-6 py-3 rounded-lg text-[13px] tracking-wide font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_30px_rgba(184,134,11,0.4)]"
               style={{ background: "linear-gradient(135deg, #B8860B, #D4A017, #B8860B)" }}
             >
               Багцуудыг үзэх
             </a>
             <a
               href="#destinations"
-              className="px-7 py-3.5 rounded-full text-[13px] tracking-wide font-medium text-white glass-dark hover:bg-white/20 transition-all duration-300"
+              className="inline-flex min-h-12 items-center justify-center px-6 py-3 rounded-lg text-[13px] tracking-wide font-semibold text-white glass-dark hover:bg-white/20 transition-all duration-300"
             >
               Очир харах
             </a>
@@ -100,7 +98,7 @@ export default function Hero() {
 
         <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4 }}
-          className="absolute right-8 lg:right-16 bottom-24 flex flex-col items-end gap-6"
+          className="absolute right-4 lg:right-8 bottom-24 flex flex-col items-end gap-6"
         >
           <div className="flex flex-col items-center gap-3">
             {scenes.map((_, i) => (
@@ -130,3 +128,5 @@ export default function Hero() {
     </section>
   );
 }
+
+

@@ -33,7 +33,7 @@ export default function Navbar() {
             : "py-6 bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between">
+        <div className="ui-container flex items-center justify-between">
           <Link href="/" className="flex flex-col leading-none">
             <span className="font-display text-2xl font-light tracking-[0.15em] gold-text">
               УУДАМ
@@ -66,7 +66,7 @@ export default function Navbar() {
             </a>
             <a
               href="#packages"
-              className="px-5 py-2.5 rounded-full text-[12px] tracking-wide font-medium transition-all duration-300 text-white hover:scale-105 hover:shadow-[0_4px_20px_rgba(184,134,11,0.35)]"
+              className="inline-flex min-h-12 items-center justify-center px-6 py-3 rounded-lg text-[13px] tracking-wide font-semibold transition-all duration-300 text-white hover:scale-105 hover:shadow-[0_4px_20px_rgba(184,134,11,0.35)]"
               style={{ background: "linear-gradient(135deg, #B8860B, #D4A017, #B8860B)" }}
             >
               Захиалах
@@ -115,3 +115,5 @@ export default function Navbar() {
     </>
   );
 }
+
+

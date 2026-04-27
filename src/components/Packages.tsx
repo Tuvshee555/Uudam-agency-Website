@@ -172,7 +172,7 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[0]; index: number })
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.5, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative rounded-2xl overflow-hidden cursor-pointer card-light hover:shadow-lg transition-all duration-500"
+      className="group relative rounded-2xl overflow-hidden cursor-pointer card-light hover:shadow-lg transition-all duration-500 h-full"
     >
       <div className="relative h-48 overflow-hidden">
         <div
@@ -197,30 +197,30 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[0]; index: number })
         </div>
       </div>
 
-      <div className="p-5">
-        <p className="text-[13px] text-[#777] font-light leading-relaxed mb-4 line-clamp-2">
+      <div className="p-6 flex flex-col gap-4">
+        <p className="text-[14px] text-[#666] font-light leading-relaxed line-clamp-2">
           {pkg.description}
         </p>
 
-        <div className="flex flex-wrap gap-1.5 mb-5">
+        <div className="flex flex-wrap gap-2">
           {pkg.highlights.map((h) => (
-            <span key={h} className="px-2 py-0.5 rounded-full text-[10px] text-[#666] bg-[#F5F0E6] border border-[#E8DFC8]">
+            <span key={h} className="px-2.5 py-1 rounded-full text-[11px] text-[#666] bg-[#F5F0E6] border border-[#E8DFC8]">
               {h}
             </span>
           ))}
         </div>
 
-        <div className="flex items-end justify-between">
+        <div className="mt-auto flex items-end justify-between gap-4">
           <div>
             <p className="text-[10px] text-[#bbb] tracking-wide uppercase mb-0.5">Эхлэх үнэ</p>
-            <p className="font-display text-xl font-light gold-text">₮{pkg.price}</p>
+            <p className="font-display text-2xl md:text-[2rem] font-semibold gold-text">₮{pkg.price}</p>
             <p className="text-[11px] text-[#bbb] mt-0.5">{pkg.duration}</p>
           </div>
           <motion.a
             href="#contact"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
-            className="px-5 py-2.5 rounded-full text-[11px] tracking-wide font-medium text-white transition-shadow duration-300 hover:shadow-[0_4px_20px_rgba(184,134,11,0.35)]"
+            className="inline-flex min-h-12 min-w-[124px] items-center justify-center px-6 py-3 rounded-lg text-[13px] tracking-wide font-semibold whitespace-nowrap text-white transition-shadow duration-300 hover:shadow-[0_4px_20px_rgba(184,134,11,0.35)]"
             style={{ background: "linear-gradient(135deg, #B8860B, #D4A017, #B8860B)" }}
           >
             Захиалах
@@ -238,9 +238,9 @@ export default function Packages() {
   const filtered = active === "all" ? packages : packages.filter((p) => p.category === active);
 
   return (
-    <section id="packages" className="py-24 px-6 lg:px-10 bg-[#F5F0E6]">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+    <section id="packages" className="ui-section bg-[#F5F0E6]">
+      <div className="ui-container">
+        <div className="flex flex-col items-center text-center gap-8 mb-14">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -263,13 +263,13 @@ export default function Packages() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="flex flex-wrap gap-2"
+            className="flex flex-wrap justify-center gap-3"
           >
             {filters.map((f) => (
               <button
                 key={f.id}
                 onClick={() => setActive(f.id)}
-                className={`px-4 py-2 rounded-full text-[12px] tracking-wide transition-all duration-300 ${
+                className={`inline-flex min-h-12 items-center justify-center px-6 py-3 rounded-md text-[13px] tracking-wide font-semibold transition-all duration-300 ${
                   active === f.id
                     ? "text-white shadow-[0_4px_16px_rgba(184,134,11,0.3)]"
                     : "bg-white border border-[#E0D8C8] text-[#777] hover:text-[#1A1A1A] hover:border-gold/30"
@@ -282,7 +282,7 @@ export default function Packages() {
           </motion.div>
         </div>
 
-        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           <AnimatePresence mode="popLayout">
             {filtered.map((pkg, i) => (
               <PackageCard key={pkg.id} pkg={pkg} index={i} />
@@ -293,3 +293,6 @@ export default function Packages() {
     </section>
   );
 }
+
+
+

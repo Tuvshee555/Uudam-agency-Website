@@ -47,8 +47,8 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-24 overflow-hidden bg-white">
-      <div className="max-w-6xl mx-auto px-6 lg:px-10 mb-12">
+    <section className="ui-section overflow-hidden bg-white">
+      <div className="ui-container mb-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -71,8 +71,8 @@ export default function Testimonials() {
       </div>
 
       <div
-        className="flex gap-4 px-6 lg:px-10 overflow-x-auto no-scrollbar pb-4"
-        style={{ paddingLeft: "max(1.5rem, calc((100vw - 72rem) / 2 + 2.5rem))" }}
+        className="ui-container flex gap-6 overflow-x-auto no-scrollbar pb-4"
+        
       >
         {testimonials.map((t, i) => (
           <motion.div
@@ -81,7 +81,7 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1, duration: 0.7 }}
-            className="flex-none w-80 md:w-96 card-light rounded-2xl p-7 flex flex-col hover:shadow-md transition-shadow duration-300"
+            className="flex-none w-80 md:w-96 card-light rounded-2xl p-8 flex flex-col hover:shadow-md transition-shadow duration-300"
           >
             <div className="flex gap-1 mb-5">
               {Array.from({ length: t.stars }).map((_, j) => (
@@ -113,3 +113,4 @@ export default function Testimonials() {
     </section>
   );
 }
+
