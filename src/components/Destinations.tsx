@@ -1,157 +1,118 @@
-"use client";
+﻿"use client";
 
-import { useRef } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const destinations = [
   {
-    name: "Токио",
-    nameEn: "Tokyo",
-    country: "Япон",
-    image: "/destinations/tokyo-shibuya.jpg",
-    tagline: "Гэрэл ба уламжлал",
-    color: "#B8860B",
-  },
-  {
-    name: "Каппадок",
-    nameEn: "Cappadocia",
-    country: "Турк",
-    image: "/destinations/cappadocia.jpg",
-    tagline: "Тэнгэрийн бөмбөрцөг",
-    color: "#B8860B",
-  },
-  {
-    name: "Бангкок",
-    nameEn: "Bangkok",
-    country: "Тайланд",
-    image: "/destinations/bangkok-temple.jpg",
-    tagline: "Амьдрал дүүрэн хот",
-    color: "#B8860B",
+    name: "Бээжин",
+    country: "БНХАУ",
+    image: "/destinations/beijing-premium.jpg",
+    season: "4-10 сар",
+    flight: "Шууд нислэг",
+    summary: "Түүх, ордон, соёл, худалдааг нэг аяллаар цэгцтэй үзэх боломжтой хот.",
   },
   {
     name: "Шанхай",
-    nameEn: "Shanghai",
-    country: "Хятад",
-    image: "/destinations/shanghai.jpg",
-    tagline: "Ирээдүйн хот",
-    color: "#B8860B",
+    country: "БНХАУ",
+    image: "/destinations/shanghai-premium.jpg",
+    season: "Бүх улирал",
+    flight: "Шууд нислэг",
+    summary: "Орчин үеийн хотын хэмнэл, тансаг буудал, өндөр зэрэглэлийн үйлчилгээ.",
   },
   {
-    name: "Жанжяажие",
-    nameEn: "Zhangjiajie",
-    country: "Хятад",
-    image: "/destinations/zhangjiajie.jpg",
-    tagline: "Тэнгэрийн баганууд",
-    color: "#B8860B",
+    name: "Токио",
+    country: "Япон",
+    image: "/destinations/tokyo-premium.jpg",
+    season: "3-11 сар",
+    flight: "Шилжиж нисэх",
+    summary: "Дэвшилтэт технологи, уламжлалт соёл, цэвэр зохион байгуулалттай маршрут.",
   },
   {
-    name: "Бээжин",
-    nameEn: "Beijing",
-    country: "Хятад",
-    image: "/destinations/forbidden-city.jpg",
-    tagline: "5000 жилийн түүх",
-    color: "#B8860B",
+    name: "Каппадок",
+    country: "Турк",
+    image: "/destinations/cappadocia-premium.jpg",
+    season: "4-10 сар",
+    flight: "Шилжиж нисэх",
+    summary: "Өвөрмөц хадат тогтоц, халуун агаарын бөмбөлөг, сонгодог түүхэн дурсгал.",
+  },
+  {
+    name: "Бангкок",
+    country: "Тайланд",
+    image: "/destinations/bangkok-premium.jpg",
+    season: "11-4 сар",
+    flight: "Шилжиж нисэх",
+    summary: "Дулаан уур амьсгал, амралт, хоолны баялаг соёлыг хослуулсан чиглэл.",
+  },
+  {
+    name: "Чүнчин",
+    country: "БНХАУ",
+    image: "/destinations/chongqing-premium.jpg",
+    season: "3-11 сар",
+    flight: "Шууд нислэг",
+    summary: "Уулан хотын өвөрмөц дүр төрх, хотын үзэмж, амтат хоолны аяллын төв.",
   },
 ];
 
-function DestinationCard({ dest, index }: { dest: typeof destinations[0]; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative flex-none w-65 md:w-80 h-100 md:h-115 rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-500"
-    >
-      <div
-        className="absolute inset-0 bg-center bg-cover transition-transform duration-700 group-hover:scale-110"
-        style={{ backgroundImage: `url(${dest.image})` }}
-      />
-      <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/15 to-transparent" />
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: `linear-gradient(to top, rgba(184,134,11,0.25), transparent)` }}
-      />
-
-      <div className="absolute inset-x-0 bottom-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-        <p className="text-[10px] tracking-[0.35em] uppercase mb-1.5 text-gold-light">
-          {dest.country}
-        </p>
-        <h3 className="font-display text-2xl font-light text-white leading-none">
-          {dest.name}
-        </h3>
-        <p className="text-[11px] text-gold-light/70 font-light mt-0.5">{dest.nameEn}</p>
-        <p className="text-sm text-white/70 font-light mt-2 opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500">
-          {dest.tagline}
-        </p>
-        <div className="mt-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500 delay-75">
-          <span className="text-[11px] tracking-[0.2em] uppercase text-gold-light">Үзэх</span>
-          <div className="w-6 h-px bg-gold-light" />
-        </div>
-      </div>
-
-      <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 scale-75 group-hover:scale-100 shadow-md">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M2 6h8M6 2l4 4-4 4" stroke="#B8860B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </div>
-    </motion.div>
-  );
-}
-
 export default function Destinations() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({ left: dir === "right" ? 380 : -380, behavior: "smooth" });
-  };
-
   return (
-    <section id="destinations" className="ui-section overflow-hidden bg-[#FAFAF8]">
+    <section id="destinations" className="ui-section">
       <div className="ui-container">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.8 }}
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-px bg-gold" />
-              <span className="text-[11px] tracking-[0.35em] uppercase text-gold">Аяллын очир</span>
-            </div>
-            <h2 className="font-display text-4xl md:text-5xl font-light leading-tight text-[#1A1A1A]">
-              Алдарт<br />
-              <em className="italic gold-text">Очирууд</em>
-            </h2>
-            <p className="text-xs text-[#aaa] mt-1 tracking-wider">Iconic Destinations</p>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="hidden md:flex gap-3">
-            <button onClick={() => scroll("left")} className="w-11 h-11 rounded-full card-light hover:border-gold/30 transition-all duration-300 flex items-center justify-center group">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <path d="M10 3l-5 5 5 5" stroke="#555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-[#B8860B] transition-colors"/>
-              </svg>
-            </button>
-            <button onClick={() => scroll("right")} className="w-11 h-11 rounded-full card-light hover:border-gold/30 transition-all duration-300 flex items-center justify-center group">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-                <path d="M6 3l5 5-5 5" stroke="#555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-[#B8860B] transition-colors"/>
-              </svg>
-            </button>
-          </motion.div>
+        <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-3xl space-y-4">
+            <span className="section-kicker">Онцлох чиглэлүүд</span>
+            <h2 className="section-title">Аялахад хамгийн их сонгогддог хотууд</h2>
+            <p className="section-copy">
+              Бид чиглэл бүрт нислэг, буудал, маршрутын логистикийг урьдчилан шалгаж,
+              захиалагч бүрт ойлгомжтой бүтэцтэй аяллын хувилбар санал болгодог.
+            </p>
+          </div>
+          <a href="#packages" className="btn-base btn-secondary w-fit">
+            Бүх багц үзэх
+          </a>
         </div>
-      </div>
 
-      <div
-        ref={scrollRef}
-        className="ui-container flex gap-6 overflow-x-auto no-scrollbar pb-4"
-        
-      >
-        {destinations.map((dest, i) => (
-          <DestinationCard key={dest.name} dest={dest} index={i} />
-        ))}
-        <div className="flex-none w-6" />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {destinations.map((item, index) => (
+            <motion.article
+              key={item.name}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.55, delay: index * 0.06 }}
+              className="surface-card overflow-hidden"
+            >
+              <div className="relative aspect-[16/11] overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={`${item.name} хотын зураг`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(11,42,70,0.64)_100%)]" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between text-white">
+                  <div>
+                    <p className="text-xs font-semibold tracking-[0.12em] text-white/80">{item.country}</p>
+                    <h3 className="mt-1 text-2xl font-black text-white">{item.name}</h3>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4 p-5">
+                <p className="text-[0.96rem] leading-7 text-[var(--neutral-700)]">{item.summary}</p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="chip">Улирал: {item.season}</span>
+                  <span className="chip">Нислэг: {item.flight}</span>
+                </div>
+                <a href="#contact" className="btn-base btn-secondary w-full">
+                  Энэ чиглэлээр зөвлөгөө авах
+                </a>
+              </div>
+            </motion.article>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
-

@@ -1,143 +1,188 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { FormEvent, useState } from "react";
 
 const channels = [
+  { title: "Утас", value: "7713 6633", href: "tel:77136633" },
+  { title: "Цахим шуудан", value: "uudamtravel6@gmail.com", href: "mailto:uudamtravel6@gmail.com" },
   {
-    label: "Залгах",
-    sub: "Call Us",
-    value: "7713 6633",
-    href: "tel:77136633",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-    bg: "linear-gradient(135deg, #B8860B, #D4A017)",
-    textColor: "#FFFFFF",
-    shadow: "0 8px 30px rgba(184,134,11,0.35)",
-    accent: null,
-  },
-  {
-    label: "WhatsApp",
-    sub: "Чат хийх",
-    value: "7713 6633",
-    href: "https://wa.me/97677136633",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="#25D366" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-    bg: "#FFFFFF",
-    textColor: "#1A1A1A",
-    border: "1px solid #E0EBE0",
-    shadow: "0 4px 20px rgba(0,0,0,0.07)",
-    accent: "#25D366",
-  },
-  {
-    label: "Facebook",
-    sub: "Мессеж бичих",
-    value: "Uudam Travel Agency",
+    title: "Фэйсбүүк",
+    value: "Уудам аялал жуулчлал",
     href: "https://www.facebook.com/uudamtravelagency",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="#1877F2" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-    bg: "#FFFFFF",
-    textColor: "#1A1A1A",
-    border: "1px solid #E0E8F5",
-    shadow: "0 4px 20px rgba(0,0,0,0.07)",
-    accent: "#1877F2",
   },
 ];
 
 export default function CTA() {
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    const name = (formData.get("name") as string)?.trim();
+    const phone = (formData.get("phone") as string)?.trim();
+    const destination = (formData.get("destination") as string)?.trim();
+    const month = (formData.get("month") as string)?.trim();
+    const travelers = (formData.get("travelers") as string)?.trim();
+    const note = (formData.get("note") as string)?.trim();
+
+    const message = [
+      "Сайн байна уу?",
+      "Уудам аяллын зөвлөгөө авах хүсэлт илгээлээ.",
+      `Нэр: ${name}`,
+      `Утас: ${phone}`,
+      `Чиглэл: ${destination}`,
+      `Төлөвлөсөн сар: ${month}`,
+      `Зорчигчийн тоо: ${travelers}`,
+      `Нэмэлт хүсэлт: ${note || "Байхгүй"}`,
+    ].join("\n");
+
+    window.open(`https://wa.me/97677136633?text=${encodeURIComponent(message)}`, "_blank");
+    event.currentTarget.reset();
+    setSent(true);
+  };
+
   return (
-    <section id="contact" className="ui-section relative overflow-hidden bg-[#FAFAF8]">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(184,134,11,0.05),transparent)]" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-gold/20 to-transparent" />
-
-      <div className="relative z-10 ui-container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-14"
-        >
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <div className="w-8 h-px bg-gold" />
-            <span className="text-[11px] tracking-[0.35em] uppercase text-gold">Аялалд бэлэн үү?</span>
-            <div className="w-8 h-px bg-gold" />
-          </div>
-          <h2 className="font-display text-4xl md:text-5xl font-light leading-tight text-[#1A1A1A]">
-            Таны аялал
-            <br />
-            <em className="italic gold-text">өнөөдөр эхэлнэ</em>
-          </h2>
-          <p className="text-xs text-[#bbb] mt-1 tracking-wider mb-5">Your Journey Starts Today</p>
-          <p className="text-[#888] font-light text-base max-w-md mx-auto leading-relaxed">
-            Аяллын мэргэжилтэнтэй ярилцаж, зөвхөн таны хувьд тусгайлан гарган тавьсан маршрут авна уу.
-            Үнэ төлбөргүй зөвлөгөө, ямар ч үүрэгдэлгүй.
+    <section id="contact" className="ui-section bg-[var(--brand-50)]">
+      <div className="ui-container">
+        <div className="mb-10 space-y-4 md:mb-12">
+          <span className="section-kicker">Захиалга, зөвлөгөө</span>
+          <h2 className="section-title">Аяллаа өнөөдрөөс төлөвлөе</h2>
+          <p className="section-copy">
+            Доорх маягтыг бөглөөд илгээнэ үү. Манай зөвлөх баг таны хүсэлт дээр үндэслэн
+            тохирсон багц, огноо, үнийн хувилбарыг богино хугацаанд илгээнэ.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="grid sm:grid-cols-3 gap-6 lg:gap-8"
-        >
-          {channels.map((ch) => (
-            <motion.a
-              key={ch.label}
-              href={ch.href}
-              target={ch.href.startsWith("http") ? "_blank" : undefined}
-              rel="noopener noreferrer"
-              whileHover={{ y: -5, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-              className="flex flex-col items-center justify-center gap-4 p-8 rounded-2xl text-center min-h-44"
-              style={{ background: ch.bg, border: ch.border, boxShadow: ch.shadow, color: ch.textColor }}
-            >
-              <div
-                className="w-13 h-13 rounded-full flex items-center justify-center"
-                style={{ background: ch.accent ? `${ch.accent}12` : "rgba(255,255,255,0.2)" }}
-              >
-                {ch.icon}
-              </div>
-              <div>
-                <p className="font-semibold tracking-wide text-base">{ch.label}</p>
-                <p className="text-[11px] mt-0.5 opacity-60">{ch.sub}</p>
-                <p className="text-[13px] mt-1 font-medium" style={{ color: ch.accent || "rgba(255,255,255,0.9)" }}>
-                  {ch.value}
-                </p>
-              </div>
-            </motion.a>
-          ))}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-10 text-center"
-        >
-          <p className="text-[13px] text-[#bbb] font-light">
-            Ажлын цаг: Даваа–Бямба, 09:00–19:00 (УБ цаг)
-          </p>
-          <a
-            href="mailto:uudamtravel6@gmail.com"
-            className="text-[13px] text-gold hover:text-gold-light transition-colors font-light mt-1 inline-block"
+        <div className="grid gap-6 xl:grid-cols-[1fr_1.2fr]">
+          <motion.aside
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="surface-card space-y-5 p-5 sm:p-6"
           >
-            uudamtravel6@gmail.com
-          </a>
-        </motion.div>
+            <div className="flex items-center gap-3">
+              <span className="relative size-12 overflow-hidden rounded-full border border-[rgba(17,62,103,0.25)]">
+                <Image src="/brand/uudam-logo.jpg" alt="Уудам лого" fill sizes="48px" className="object-cover" />
+              </span>
+              <div>
+                <p className="text-sm font-extrabold text-[var(--brand-700)]">Уудам Аялал Жуулчлал</p>
+                <p className="text-xs text-[var(--neutral-400)]">Итгэлтэй, төлөвлөгөөтэй аяллын хамтрагч</p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {channels.map((item) => (
+                <a
+                  key={item.title}
+                  href={item.href}
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className="block rounded-xl border border-[var(--neutral-200)] bg-white px-4 py-3 transition-colors hover:border-[var(--brand-700)]"
+                >
+                  <p className="text-xs font-bold tracking-[0.08em] text-[var(--neutral-400)]">{item.title}</p>
+                  <p className="mt-1 text-[0.96rem] font-semibold text-[var(--neutral-900)]">{item.value}</p>
+                </a>
+              ))}
+            </div>
+
+            <div className="rounded-xl bg-white p-4 text-sm leading-7 text-[var(--neutral-700)]">
+              <p className="font-semibold text-[var(--neutral-900)]">Ажлын цаг</p>
+              <p>Даваа - Бямба, 09:00 - 19:00</p>
+              <p>Нямд утсаар урьдчилан холбогдоно</p>
+            </div>
+          </motion.aside>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.08 }}
+            className="surface-card p-5 sm:p-6"
+          >
+            <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label htmlFor="name" className="form-label">
+                  Нэр
+                </label>
+                <input id="name" name="name" required className="form-field" placeholder="Жишээ: Батбаяр" />
+              </div>
+
+              <div>
+                <label htmlFor="phone" className="form-label">
+                  Утас
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  required
+                  className="form-field"
+                  placeholder="Жишээ: 99112233"
+                  inputMode="tel"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="destination" className="form-label">
+                  Сонирхож буй чиглэл
+                </label>
+                <select id="destination" name="destination" required className="form-field">
+                  <option value="">Сонгоно уу</option>
+                  <option value="Бээжин">Бээжин</option>
+                  <option value="Шанхай">Шанхай</option>
+                  <option value="Токио">Токио</option>
+                  <option value="Каппадок">Каппадок</option>
+                  <option value="Бангкок">Бангкок</option>
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="month" className="form-label">
+                  Төлөвлөсөн сар
+                </label>
+                <input id="month" name="month" className="form-field" placeholder="Жишээ: 2026 оны 7 сар" />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label htmlFor="travelers" className="form-label">
+                  Зорчигчийн тоо
+                </label>
+                <input id="travelers" name="travelers" className="form-field" placeholder="Жишээ: 2 том хүн, 1 хүүхэд" />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label htmlFor="note" className="form-label">
+                  Нэмэлт хүсэлт
+                </label>
+                <textarea
+                  id="note"
+                  name="note"
+                  rows={4}
+                  className="form-field resize-y"
+                  placeholder="Төсөв, буудлын ангилал, онцгой шаардлагаа бичнэ үү"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <button type="submit" className="btn-base btn-primary w-full">
+                  Зөвлөгөөний хүсэлт илгээх
+                </button>
+                <p className="mt-2 text-xs text-[var(--neutral-400)]">
+                  Илгээх товчийг дарахад Ватсап цонх нээгдэж хүсэлт автоматаар бөглөгдөнө.
+                </p>
+                {sent && (
+                  <p className="mt-2 text-sm font-semibold text-[var(--brand-700)]">
+                    Хүсэлт амжилттай бэлтгэгдлээ. Манай баг танд удахгүй холбогдоно.
+                  </p>
+                )}
+              </div>
+            </form>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 }
-

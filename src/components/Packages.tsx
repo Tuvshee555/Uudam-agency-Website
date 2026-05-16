@@ -1,158 +1,190 @@
-"use client";
+﻿"use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import { useMemo, useState } from "react";
 
-const packages = [
+type TravelPackage = {
+  id: number;
+  destination: string;
+  country: string;
+  image: string;
+  date: string;
+  duration: string;
+  price: string;
+  summary: string;
+  category: "china" | "asia" | "special";
+  inclusions: string[];
+  itinerary: string[];
+  notes: string[];
+};
+
+const packages: TravelPackage[] = [
   {
     id: 1,
     destination: "Бээжин",
-    destinationEn: "Beijing",
-    country: "Хятад",
-    image: "/destinations/forbidden-city.jpg",
-    price: "1,490,000",
-    badge: "Хамгийн их захиалагдсан",
-    badgeEn: "Most Popular",
-    badgeColor: "#B8860B",
-    highlights: ["Шууд нислэг", "3★ Зочид буудал", "Хот аялал", "Виза дэмжлэг"],
-    duration: "5 шөнө",
+    country: "БНХАУ",
+    image: "/destinations/beijing-premium.jpg",
+    date: "2026.06.12, 2026.07.05",
+    duration: "5 өдөр 4 шөнө",
+    price: "1,490,000₮",
+    summary:
+      "Хориотой хот, Цагаан хэрэм, хотын соёлын гол цэгүүдийг цэгцтэй маршрутаар үзэх олон нийтийн хамгийн их сонголттой багц.",
     category: "china",
-    description: "Хориотой хот, Цагаан хэрэм, эртний хутагтуудыг үзэх онцгой аялал.",
+    inclusions: [
+      "Олон улсын нислэг",
+      "4 шөнийн буудал",
+      "Өглөөний цай",
+      "Хот дотор унаа",
+      "Монгол хэлтэй хөтөч",
+      "Визийн материалын дэмжлэг",
+    ],
+    itinerary: [
+      "1 дэх өдөр: Улаанбаатар - Бээжин нислэг, буудалд байрлах",
+      "2 дахь өдөр: Хориотой хот, Тяньаньмэний талбай",
+      "3 дахь өдөр: Цагаан хэрэм, уламжлалт худалдааны гудамж",
+      "4 дахь өдөр: Чөлөөт өдөр, сонголтот хөтөлбөр",
+      "5 дахь өдөр: Нисэх буудал хүргэлт, Улаанбаатар буцах",
+    ],
+    notes: [
+      "Гадаад пасспорт буцах өдрөөс хойш 6 сараас дээш хүчинтэй байх",
+      "Хөтөлбөрийн дараалал цаг агаар, орон нутгийн ачааллаас шалтгаалан солигдож болно",
+      "Нэмэлт үзвэр болон хоолны зардал тусдаа тооцогдоно",
+    ],
   },
   {
     id: 2,
-    destination: "Ордос",
-    destinationEn: "Ordos",
-    country: "Хятад",
-    image: "/destinations/zhangjiajie.jpg",
-    price: "1,090,000",
-    badge: "Хямд",
-    badgeEn: "Budget Friendly",
-    badgeColor: "#888",
-    highlights: ["Автобусны тээвэр", "3★ Зочид буудал", "Соёлын аялал", "Монгол өв"],
-    duration: "4 шөнө",
-    category: "china",
-    description: "Ордосын музей, Чингис хааны булшны цогцолборыг үзэх ойр аялал.",
+    destination: "Шанхай",
+    country: "БНХАУ",
+    image: "/destinations/shanghai-premium.jpg",
+    date: "2026.06.28, 2026.07.22",
+    duration: "6 өдөр 5 шөнө",
+    price: "2,350,000₮",
+    summary:
+      "Орчин үеийн хотын өнгө төрх, худалдаа, архитектурын үзэмжийг дээд зэрэглэлийн буудлын стандарттай хослуулсан багц.",
+    category: "special",
+    inclusions: [
+      "Олон улсын нислэг",
+      "5 шөнийн 4-5 одтой буудал",
+      "Хотын аяллын маршрут",
+      "Хөтөч ба орчуулга",
+      "Өдөр тутмын өглөөний цай",
+    ],
+    itinerary: [
+      "1 дэх өдөр: Шанхай хотод буух, амралт",
+      "2 дахь өдөр: Бунд, цамхаг, голын эргийн тойрог",
+      "3 дахь өдөр: Юй цэцэрлэг, музей, соёлын бүс",
+      "4 дахь өдөр: Чөлөөт өдөр, худалдааны бүс",
+      "5 дахь өдөр: Сонголтот хөтөлбөр, оройн аялал",
+      "6 дахь өдөр: Улаанбаатар буцах",
+    ],
+    notes: [
+      "Тансаг ангиллын буудлын өрөөний төрөл үлдэгдлээс хамаарч өөрчлөгдөнө",
+      "Аяллын даатгал нэмж авахыг зөвлөж байна",
+      "Суудал баталгаажуулалт төлбөр орсны дарааллаар явагдана",
+    ],
   },
   {
     id: 3,
-    destination: "Хөх Хот",
-    destinationEn: "Hohhot",
-    country: "Хятад",
-    image: "/destinations/tianmen.jpg",
-    price: "850,000",
-    badge: "Эмнэлгийн аялал",
-    badgeEn: "Medical Tour",
-    badgeColor: "#2E86AB",
-    highlights: ["Эрүүл мэндийн үзлэг", "Мэргэжилтний зөвлөгөө", "Орчуулагч", "Эмнэлэг шилжүүлэг"],
-    duration: "3 шөнө",
-    category: "china",
-    description: "Өвөр Монголын шилдэг эмнэлгүүдэд дэлгэрэнгүй эрүүл мэндийн үзлэг хийлгэнэ.",
+    destination: "Токио, Фүжи уул",
+    country: "Япон",
+    image: "/destinations/tokyo-premium.jpg",
+    date: "2026.07.03, 2026.08.10",
+    duration: "7 өдөр 6 шөнө",
+    price: "2,830,000₮",
+    summary:
+      "Токио хотын орчин үеийн хэмнэл болон Фүжи уулын байгалийг хослуулсан урт хугацааны хамгийн эрэлттэй маршрут.",
+    category: "asia",
+    inclusions: [
+      "Олон улсын нислэг",
+      "6 шөнийн буудал",
+      "Хурдны галт тэрэгний тийз",
+      "Өглөөний цай",
+      "Монгол хөтөч, орчуулга",
+    ],
+    itinerary: [
+      "1 дэх өдөр: Токио хотод буух, байрлах",
+      "2 дахь өдөр: Шибүя, Асакуса, хотын аялал",
+      "3 дахь өдөр: Фүжи уулын бүсэд бүтэн өдрийн аялал",
+      "4 дахь өдөр: Соёлын дүүрэг, музей",
+      "5 дахь өдөр: Чөлөөт өдөр",
+      "6 дахь өдөр: Сонголтот хөтөлбөр",
+      "7 дахь өдөр: Улаанбаатар буцах",
+    ],
+    notes: [
+      "Япон визийн материалд урьдчилсан санхүүгийн нотолгоо шаардана",
+      "Хоолны онцгой шаардлагыг захиалга хийхдээ урьдчилан мэдээлнэ",
+      "Тээшний жинг агаарын тээврийн журмаар мөрдөнө",
+    ],
   },
   {
     id: 4,
-    destination: "Тайланд",
-    destinationEn: "Thailand",
-    country: "Тайланд",
-    image: "/destinations/bangkok-temple.jpg",
-    price: "3,550,000",
-    badge: "Тропик аялал",
-    badgeEn: "Tropical Escape",
-    badgeColor: "#B8860B",
-    highlights: ["Хоёр чиглэлд нислэг", "5★ Буудал", "Арал аялал", "Гудамжны хоол"],
-    duration: "7 шөнө",
-    category: "asia",
-    description: "Алтан сүм хийдүүд, туяа усан далай, дэлхийн зэргийн хоол хүнс.",
+    destination: "Каппадок, Истанбул",
+    country: "Турк",
+    image: "/destinations/cappadocia-premium.jpg",
+    date: "2026.07.18, 2026.09.02",
+    duration: "9 өдөр 8 шөнө",
+    price: "4,590,000₮",
+    summary:
+      "Европ, Азийн зааг дахь түүхэн дурсгал, бөмбөлөгт аялал, дээд зэрэглэлийн буудлын үйлчилгээтэй тусгай багц.",
+    category: "special",
+    inclusions: [
+      "Олон улсын хоёр талын нислэг",
+      "Дотоод шилжилтийн нислэг",
+      "8 шөнийн буудал",
+      "Өдөр тутмын өглөөний цай",
+      "Бүх маршрутын унаа",
+      "Тусгай хөтөч, орчуулагч",
+    ],
+    itinerary: [
+      "1 дэх өдөр: Истанбул хотод буух",
+      "2 дахь өдөр: Түүхэн дүүрэг, гол дурсгалууд",
+      "3 дахь өдөр: Каппадок руу шилжих",
+      "4 дахь өдөр: Бөмбөлөгт аялал, газар дээрх маршрут",
+      "5 дахь өдөр: Хадат хөндийн аялал",
+      "6 дахь өдөр: Чөлөөт өдөр",
+      "7 дахь өдөр: Истанбул буцах",
+      "8 дахь өдөр: Худалдаа, соёлын аялал",
+      "9 дахь өдөр: Улаанбаатар буцах",
+    ],
+    notes: [
+      "Бөмбөлөгт аялал цаг агаарын нөхцлөөс хамааран хойшилж болно",
+      "Нэмэлт даатгал болон сонголтот хөтөлбөр тусдаа үнэтэй",
+      "Нэг өрөөнд байрлах зорчигчийн тоо сонгосон багцаас шалтгаална",
+    ],
   },
   {
     id: 5,
-    destination: "Гуанжоу · Макао · Шэньжэн",
-    destinationEn: "Guangzhou · Macau · Shenzhen",
-    country: "Хятад",
-    image: "/destinations/glass-bridge.jpg",
-    price: "2,500,000",
-    badge: "Гурван хот",
-    badgeEn: "Triple City",
-    badgeColor: "#B8860B",
-    highlights: ["3 хот", "Дэлгүүр хэсэх", "Казино", "Кантоны цамхаг"],
-    duration: "6 шөнө",
-    category: "china",
-    description: "Перл голын дельтагийн гурван алдарт хотыг нэгтгэсэн аялал.",
-  },
-  {
-    id: 6,
-    destination: "Чунцин",
-    destinationEn: "Chongqing",
-    country: "Хятад",
-    image: "/destinations/chongqing.jpg",
-    price: "1,890,000",
-    badge: "Нуугдмал эрдэнэ",
-    badgeEn: "Hidden Gem",
-    badgeColor: "#B8860B",
-    highlights: ["Шууд нислэг", "Халуун шөл", "3 голын аялал", "Уулын хот"],
-    duration: "5 шөнө",
-    category: "china",
-    description: "Хятадын хамгийн драмчилсан хот — ууланд баригдсан, халуун шөлөөрөө алдартай.",
-  },
-  {
-    id: 7,
-    destination: "Хайнань",
-    destinationEn: "Hainan",
-    country: "Хятад",
-    image: "/destinations/zhangjiajie.jpg",
-    price: "2,790,000",
-    badge: "Эрэг ба нар",
-    badgeEn: "Beach & Sun",
-    badgeColor: "#B8860B",
-    highlights: ["Эрэгт буудал", "Санья булан", "Татваргүй дэлгүүр", "Усан спорт"],
-    duration: "6 шөнө",
-    category: "china",
-    description: "Хятадын тропик арлын диваажин — цэвэр цагаан элсэн эрэг, хаан зэргийн буудлууд.",
-  },
-  {
-    id: 8,
-    destination: "Шанхай",
-    destinationEn: "Shanghai",
-    country: "Хятад",
-    image: "/destinations/shanghai.jpg",
-    price: "4,590,000",
-    badge: "Премиум",
-    badgeEn: "Premium",
-    badgeColor: "#B8860B",
-    highlights: ["5★ Зочид буудал", "Бунд аялал", "Юй цэцэрлэг", "Франц хороолол"],
-    duration: "7 шөнө",
-    category: "china",
-    description: "Дорно дахин уулзах хамгийн космополит хот — бүх мэдрэхүйн баялаг.",
-  },
-  {
-    id: 9,
-    destination: "Токио & Фүжи уул",
-    destinationEn: "Tokyo & Mt. Fuji",
-    country: "Япон",
-    image: "/destinations/fuji-blossoms.jpg",
-    price: "2,830,000",
-    badge: "Гарын үсэг аялал",
-    badgeEn: "Signature",
-    badgeColor: "#B8860B",
-    highlights: ["Хоёр чиглэлд нислэг", "Шинкансен", "Фүжи уул", "Шибуя & Асакуса"],
-    duration: "7 шөнө",
-    category: "japan",
-    description: "Шибуягийн гэрэлт гудамжнаас Фүжийн ариун оргил хүртэл — Японы хамгийн сонирхолтой аялал.",
-  },
-  {
-    id: 10,
-    destination: "Турк",
-    destinationEn: "Turkey",
-    country: "Турк",
-    image: "/destinations/cappadocia.jpg",
-    price: "4,590,000",
-    badge: "Премиум",
-    badgeEn: "Premium",
-    badgeColor: "#B8860B",
-    highlights: ["Хоёр чиглэлд нислэг", "Каппадок", "Бөмбөгт онгоц", "Истанбул хуучин хот"],
-    duration: "9 шөнө",
-    category: "europe",
-    description: "Үлгэр ярианы яндангуудын дээгүүр нисэх, Бизантийн мозайк, Босфорын бүрэнхий.",
+    destination: "Бангкок, амралтын арал",
+    country: "Тайланд",
+    image: "/destinations/bangkok-premium.jpg",
+    date: "2026.08.01, 2026.09.14",
+    duration: "7 өдөр 6 шөнө",
+    price: "3,550,000₮",
+    summary:
+      "Дулаан уур амьсгалтай амралт, хот болон арал хосолсон маршрутаар гэр бүл болон хосын аялалд тохиромжтой багц.",
+    category: "asia",
+    inclusions: [
+      "Олон улсын нислэг",
+      "6 шөнийн буудал",
+      "Хотын аялал",
+      "Арал руу шилжүүлэг",
+      "Өглөөний цай",
+    ],
+    itinerary: [
+      "1 дэх өдөр: Бангкок хотод буух",
+      "2 дахь өдөр: Хотын төв маршрут",
+      "3 дахь өдөр: Арал руу шилжих",
+      "4 дахь өдөр: Амралт, чөлөөт өдөр",
+      "5 дахь өдөр: Сонголтот усан хөтөлбөр",
+      "6 дахь өдөр: Бангкокт буцаж ирэх",
+      "7 дахь өдөр: Улаанбаатар буцах",
+    ],
+    notes: [
+      "Тропикийн улиралд борооны богино хугацааны аадар орох магадлалтай",
+      "Нарнаас хамгаалах хэрэгсэл болон хөнгөн хувцас бэлтгэнэ",
+      "Амралтын газрын дотоод журмыг заавал мөрдөнө",
+    ],
   },
 ];
 
@@ -160,139 +192,225 @@ const filters = [
   { id: "all", label: "Бүгд" },
   { id: "china", label: "Хятад" },
   { id: "asia", label: "Ази" },
-  { id: "japan", label: "Япон" },
-  { id: "europe", label: "Европ" },
-];
-
-function PackageCard({ pkg, index }: { pkg: typeof packages[0]; index: number }) {
-  return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.5, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative rounded-2xl overflow-hidden cursor-pointer card-light hover:shadow-lg transition-all duration-500 h-full"
-    >
-      <div className="relative h-48 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-center bg-cover transition-transform duration-700 group-hover:scale-110"
-          style={{ backgroundImage: `url(${pkg.image})` }}
-        />
-        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
-
-        <div
-          className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] tracking-wide font-medium"
-          style={{ background: `${pkg.badgeColor}18`, color: pkg.badgeColor, border: `1px solid ${pkg.badgeColor}40` }}
-        >
-          {pkg.badge}
-        </div>
-
-        <div className="absolute bottom-3 right-3 text-right">
-          <p className="text-[10px] text-white/60 tracking-wider uppercase">{pkg.country}</p>
-          <p className="font-display text-xl font-light text-white leading-tight">
-            {pkg.destination.split("·")[0].trim()}
-          </p>
-          <p className="text-[10px] text-white/50 mt-0.5">{pkg.destinationEn.split("·")[0].trim()}</p>
-        </div>
-      </div>
-
-      <div className="p-6 flex flex-col gap-4">
-        <p className="text-[14px] text-[#666] font-light leading-relaxed line-clamp-2">
-          {pkg.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2">
-          {pkg.highlights.map((h) => (
-            <span key={h} className="px-2.5 py-1 rounded-full text-[11px] text-[#666] bg-[#F5F0E6] border border-[#E8DFC8]">
-              {h}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-auto flex items-end justify-between gap-4">
-          <div>
-            <p className="text-[10px] text-[#bbb] tracking-wide uppercase mb-0.5">Эхлэх үнэ</p>
-            <p className="font-display text-2xl md:text-[2rem] font-semibold gold-text">₮{pkg.price}</p>
-            <p className="text-[11px] text-[#bbb] mt-0.5">{pkg.duration}</p>
-          </div>
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
-            className="inline-flex min-h-12 min-w-[124px] items-center justify-center px-6 py-3 rounded-lg text-[13px] tracking-wide font-semibold whitespace-nowrap text-white transition-shadow duration-300 hover:shadow-[0_4px_20px_rgba(184,134,11,0.35)]"
-            style={{ background: "linear-gradient(135deg, #B8860B, #D4A017, #B8860B)" }}
-          >
-            Захиалах
-          </motion.a>
-        </div>
-      </div>
-
-      <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-gold/20 transition-colors duration-500 pointer-events-none" />
-    </motion.div>
-  );
-}
+  { id: "special", label: "Тусгай багц" },
+] as const;
 
 export default function Packages() {
-  const [active, setActive] = useState("all");
-  const filtered = active === "all" ? packages : packages.filter((p) => p.category === active);
+  const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]["id"]>("all");
+  const [selectedId, setSelectedId] = useState<number>(packages[0].id);
+
+  const filtered = useMemo(
+    () =>
+      activeFilter === "all"
+        ? packages
+        : packages.filter((item) => item.category === activeFilter),
+    [activeFilter],
+  );
+
+  const selected = filtered.find((item) => item.id === selectedId) ?? filtered[0] ?? packages[0];
 
   return (
-    <section id="packages" className="ui-section bg-[#F5F0E6]">
+    <section id="packages" className="ui-section bg-white">
       <div className="ui-container">
-        <div className="flex flex-col items-center text-center gap-8 mb-14">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-px bg-gold" />
-              <span className="text-[11px] tracking-[0.35em] uppercase text-gold">Аяллын санал</span>
-            </div>
-            <h2 className="font-display text-4xl md:text-5xl font-light leading-tight text-[#1A1A1A]">
-              Аяллаа
-              <br />
-              <em className="italic gold-text">сонгоорой</em>
-            </h2>
-            <p className="text-xs text-[#bbb] mt-1 tracking-wider">Choose Your Adventure</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-3"
-          >
-            {filters.map((f) => (
-              <button
-                key={f.id}
-                onClick={() => setActive(f.id)}
-                className={`inline-flex min-h-12 items-center justify-center px-6 py-3 rounded-md text-[13px] tracking-wide font-semibold transition-all duration-300 ${
-                  active === f.id
-                    ? "text-white shadow-[0_4px_16px_rgba(184,134,11,0.3)]"
-                    : "bg-white border border-[#E0D8C8] text-[#777] hover:text-[#1A1A1A] hover:border-gold/30"
-                }`}
-                style={active === f.id ? { background: "linear-gradient(135deg, #B8860B, #D4A017)" } : {}}
-              >
-                {f.label}
-              </button>
-            ))}
-          </motion.div>
+        <div className="mb-10 space-y-4 md:mb-12">
+          <span className="section-kicker">Аяллын багцууд</span>
+          <h2 className="section-title">Үнэ, хугацаа, хөтөлбөр нь тодорхой багц санал</h2>
+          <p className="section-copy">
+            Аяллын сонголт хийхдээ хамгийн түрүүнд харах шаардлагатай мэдээллийг нэг дор төвлөрүүллээ.
+            Очих газар, огноо, хугацаа, үнэ, багтсан үйлчилгээ, дэлгэрэнгүй хөтөлбөр бүгд ил тод.
+          </p>
         </div>
 
-        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div className="mb-8 flex flex-wrap gap-3">
+          {filters.map((filter) => {
+            const isActive = activeFilter === filter.id;
+            return (
+              <button
+                key={filter.id}
+                onClick={() => setActiveFilter(filter.id)}
+                className={`btn-base ${isActive ? "btn-primary" : "btn-secondary"}`}
+              >
+                {filter.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <motion.div layout className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           <AnimatePresence mode="popLayout">
-            {filtered.map((pkg, i) => (
-              <PackageCard key={pkg.id} pkg={pkg} index={i} />
+            {filtered.map((item, index) => (
+              <motion.article
+                layout
+                key={item.id}
+                initial={{ opacity: 0, y: 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 14 }}
+                transition={{ duration: 0.35, delay: index * 0.03 }}
+                className="surface-card overflow-hidden"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={`${item.destination} чиглэлийн зураг`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_35%,rgba(11,42,70,0.8)_100%)]" />
+                  <div className="absolute inset-x-4 bottom-4">
+                    <p className="text-xs font-semibold tracking-[0.08em] text-white/80">{item.country}</p>
+                    <h3 className="mt-1 text-[1.45rem] font-black text-white">{item.destination}</h3>
+                  </div>
+                </div>
+
+                <div className="space-y-4 p-5">
+                  <div className="grid grid-cols-2 gap-y-2 text-sm">
+                    <p className="text-[var(--neutral-400)]">Хөдлөх огноо</p>
+                    <p className="text-right font-semibold text-[var(--neutral-900)]">{item.date}</p>
+                    <p className="text-[var(--neutral-400)]">Хугацаа</p>
+                    <p className="text-right font-semibold text-[var(--neutral-900)]">{item.duration}</p>
+                    <p className="text-[var(--neutral-400)]">Эхлэх үнэ</p>
+                    <p className="text-right text-xl font-black text-[var(--brand-700)]">{item.price}</p>
+                  </div>
+
+                  <p className="text-[0.94rem] leading-7 text-[var(--neutral-700)]">{item.summary}</p>
+
+                  <div className="flex flex-wrap gap-2">
+                    {item.inclusions.slice(0, 3).map((point) => (
+                      <span key={point} className="chip">
+                        {point}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-2 pt-1">
+                    <a href="#contact" className="btn-base btn-primary flex-1">
+                      Захиалах
+                    </a>
+                    <button
+                      onClick={() => {
+                        setSelectedId(item.id);
+                        document
+                          .getElementById("package-detail")
+                          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }}
+                      className="btn-base btn-secondary flex-1"
+                    >
+                      Дэлгэрэнгүй
+                    </button>
+                  </div>
+                </div>
+              </motion.article>
             ))}
           </AnimatePresence>
         </motion.div>
+
+        <section id="package-detail" className="mt-14 scroll-mt-28">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+            <h3 className="text-3xl font-black">{selected.destination} багцын дэлгэрэнгүй</h3>
+            <span className="chip">Сонгогдсон багц</span>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-[1.35fr_0.9fr]">
+            <div className="surface-card space-y-3 p-4 sm:p-6">
+              <details open className="group rounded-xl border border-[var(--neutral-200)] p-4">
+                <summary className="cursor-pointer text-base font-extrabold text-[var(--neutral-900)]">
+                  Тойм
+                </summary>
+                <p className="mt-3 text-[0.95rem] leading-7">{selected.summary}</p>
+              </details>
+
+              <details open className="group rounded-xl border border-[var(--neutral-200)] p-4">
+                <summary className="cursor-pointer text-base font-extrabold text-[var(--neutral-900)]">
+                  Огноо, хугацаа, үнэ
+                </summary>
+                <div className="mt-3 grid gap-2 text-sm sm:grid-cols-3">
+                  <div className="rounded-lg bg-[var(--brand-50)] p-3">
+                    <p className="text-[var(--neutral-400)]">Хөдлөх огноо</p>
+                    <p className="mt-1 font-semibold text-[var(--neutral-900)]">{selected.date}</p>
+                  </div>
+                  <div className="rounded-lg bg-[var(--brand-50)] p-3">
+                    <p className="text-[var(--neutral-400)]">Хугацаа</p>
+                    <p className="mt-1 font-semibold text-[var(--neutral-900)]">{selected.duration}</p>
+                  </div>
+                  <div className="rounded-lg bg-[var(--brand-50)] p-3">
+                    <p className="text-[var(--neutral-400)]">Багц үнэ</p>
+                    <p className="mt-1 font-bold text-[var(--brand-700)]">{selected.price}</p>
+                  </div>
+                </div>
+              </details>
+
+              <details open className="group rounded-xl border border-[var(--neutral-200)] p-4">
+                <summary className="cursor-pointer text-base font-extrabold text-[var(--neutral-900)]">
+                  Үнэд багтсан үйлчилгээ
+                </summary>
+                <ul className="mt-3 grid gap-2 text-sm">
+                  {selected.inclusions.map((line) => (
+                    <li key={line} className="rounded-lg bg-[var(--neutral-50)] px-3 py-2">
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </details>
+
+              <details open className="group rounded-xl border border-[var(--neutral-200)] p-4">
+                <summary className="cursor-pointer text-base font-extrabold text-[var(--neutral-900)]">
+                  Өдрийн хөтөлбөр
+                </summary>
+                <ol className="mt-3 grid gap-2 text-sm">
+                  {selected.itinerary.map((line) => (
+                    <li key={line} className="rounded-lg bg-[var(--neutral-50)] px-3 py-2">
+                      {line}
+                    </li>
+                  ))}
+                </ol>
+              </details>
+
+              <details open className="group rounded-xl border border-[var(--neutral-200)] p-4">
+                <summary className="cursor-pointer text-base font-extrabold text-[var(--neutral-900)]">
+                  Чухал тэмдэглэл
+                </summary>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-[var(--neutral-700)]">
+                  {selected.notes.map((note) => (
+                    <li key={note}>{note}</li>
+                  ))}
+                </ul>
+              </details>
+            </div>
+
+            <aside className="surface-card h-fit overflow-hidden lg:sticky lg:top-28">
+              <div className="relative aspect-[16/11]">
+                <Image
+                  src={selected.image}
+                  alt={`${selected.destination} хотын зураг`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 380px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="space-y-4 p-5">
+                <h4 className="text-2xl font-black">{selected.destination}</h4>
+                <p className="text-sm">{selected.summary}</p>
+                <div className="subtle-divider" />
+                <div className="grid grid-cols-2 gap-y-2 text-sm">
+                  <p className="text-[var(--neutral-400)]">Огноо</p>
+                  <p className="text-right font-semibold text-[var(--neutral-900)]">{selected.date}</p>
+                  <p className="text-[var(--neutral-400)]">Хугацаа</p>
+                  <p className="text-right font-semibold text-[var(--neutral-900)]">{selected.duration}</p>
+                  <p className="text-[var(--neutral-400)]">Үнэ</p>
+                  <p className="text-right text-lg font-black text-[var(--brand-700)]">{selected.price}</p>
+                </div>
+                <a href="#contact" className="btn-base btn-primary w-full">
+                  Энэ багцыг захиалах
+                </a>
+                <a href="tel:77136633" className="btn-base btn-secondary w-full">
+                  Шууд залгах
+                </a>
+              </div>
+            </aside>
+          </div>
+        </section>
       </div>
     </section>
   );
 }
-
-
-

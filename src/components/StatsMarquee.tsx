@@ -1,32 +1,31 @@
-"use client";
+﻿"use client";
 
 const items = [
-  { value: "10 Очир", icon: "✦" },
-  { value: "Шууд нислэг", icon: "✦" },
-  { value: "8,000+ аялагч", icon: "✦" },
-  { value: "Эмнэлгийн аялал", icon: "✦" },
-  { value: "12 жилийн туршлага", icon: "✦" },
-  { value: "Цагийн тусламж", icon: "✦" },
-  { value: "₮850,000-аас эхлэн", icon: "✦" },
-  { value: "Монголын №1 аялал жуулчлал", icon: "✦" },
+  "Шууд нислэгийн боломжтой багц",
+  "Эмнэлгийн аяллын тусгай хөтөлбөр",
+  "24/7 аяллын үеийн дэмжлэг",
+  "Гэр бүл, хос, байгууллагын захиалга",
+  "12 жилийн салбарын туршлага",
+  "8,000+ сэтгэл хангалуун аялагч",
+  "Үнэ болон нөхцөл ил тод",
+  "Төлөвлөгөөт маршрут, чанартай үйлчилгээ",
 ];
 
 export default function StatsMarquee() {
   return (
-    <div className="relative overflow-hidden py-4 border-y border-[#E8E2D8] bg-[#F5F0E6]">
+    <section className="border-y border-[var(--neutral-200)] bg-white py-3">
       <div className="ui-container overflow-hidden">
-        <div className="flex animate-marquee whitespace-nowrap will-change-transform">
-          {[...items, ...items].map((item, i) => (
-            <div key={i} className="flex items-center gap-5 mx-8 flex-none">
-              <span className="text-gold text-xs">{item.icon}</span>
-              <span className="text-[11px] tracking-[0.2em] uppercase text-[#888] font-light">
-                {item.value}
+        <div className="flex animate-marquee whitespace-nowrap">
+          {[...items, ...items].map((item, index) => (
+            <div key={`${item}-${index}`} className="mx-7 inline-flex items-center gap-3">
+              <span className="size-1.5 rounded-full bg-[var(--brand-700)]" />
+              <span className="text-[0.78rem] font-semibold tracking-[0.08em] text-[var(--neutral-400)]">
+                {item}
               </span>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
-

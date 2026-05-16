@@ -1,12 +1,12 @@
-import Navbar from "@/components/Navbar";
+﻿import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import StatsMarquee from "@/components/StatsMarquee";
 import Destinations from "@/components/Destinations";
-import Experience from "@/components/Experience";
 import Packages from "@/components/Packages";
+import Experience from "@/components/Experience";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import StatsMarquee from "@/components/StatsMarquee";
 
 export default function Home() {
   return (
@@ -15,8 +15,8 @@ export default function Home() {
       <Hero />
       <StatsMarquee />
       <Destinations />
-      <Experience />
       <Packages />
+      <Experience />
       <Testimonials />
       <CTA />
       <Footer />

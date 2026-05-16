@@ -1,27 +1,36 @@
-import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+﻿import type { Metadata } from "next";
+import { Manrope, Merriweather } from "next/font/google";
 import "./globals.css";
 
-const display = Plus_Jakarta_Sans({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+const bodyFont = Manrope({
+  variable: "--font-body",
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const body = Plus_Jakarta_Sans({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const headingFont = Merriweather({
+  variable: "--font-heading",
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "700", "900"],
 });
 
 export const metadata: Metadata = {
-  title: "Uudam Travel — Premium International Tours from Mongolia",
+  title: "Уудам Аялал Жуулчлал",
   description:
-    "Experience world-class international travel packages from Mongolia. Fly to China, Japan, Thailand, Turkey, and beyond with Uudam Travel — your premium tour operator.",
-  keywords: ["Mongolia travel", "international tours", "China tours", "Japan tours", "Thailand tours", "Turkey tours", "Uudam Travel"],
+    "Уудам Аялал Жуулчлал - гадаад аяллын найдвартай, цэгцтэй, дээд зэрэглэлийн үйлчилгээ.",
+  keywords: [
+    "Уудам аялал",
+    "аялал жуулчлал",
+    "гадаад аялал",
+    "Хятад аялал",
+    "Япон аялал",
+    "Тайланд аялал",
+    "Турк аялал",
+  ],
   openGraph: {
-    title: "Uudam Travel — Premium International Tours",
-    description: "World-class travel experiences curated from Mongolia.",
+    title: "Уудам Аялал Жуулчлал",
+    description:
+      "Улаанбаатараас дэлхийн шилдэг чиглэл рүү төлөвлөгөөтэй, тав тухтай аяллын багц.",
     type: "website",
   },
 };
@@ -32,10 +41,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="mn" className={`${display.variable} ${body.variable}`}>
-      <body className="font-[family-name:var(--font-body)] antialiased bg-[#FAFAF8] text-[#1A1A1A]">
-        {children}
-      </body>
+    <html lang="mn" className={`${bodyFont.variable} ${headingFont.variable}`}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

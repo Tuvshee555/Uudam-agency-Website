@@ -1,14 +1,15 @@
-"use client";
+﻿"use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const links = [
-  { label: "Очир", href: "#destinations" },
-  { label: "Багцууд", href: "#packages" },
-  { label: "Бидний тухай", href: "#about" },
-  { label: "Холбоо барих", href: "#contact" },
+const navLinks = [
+  { label: "Чиглэл", href: "#destinations" },
+  { label: "Аяллын багц", href: "#packages" },
+  { label: "Яагаад бид", href: "#about" },
+  { label: "Холбоо", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -16,40 +17,67 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 18);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      <header
+        className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
           scrolled
-            ? "bg-white/90 backdrop-blur-xl border-b border-black/6 shadow-sm py-3"
-            : "py-6 bg-transparent"
+            ? "border-[rgba(17,62,103,0.14)] bg-white/94 shadow-[var(--shadow-header)] backdrop-blur-xl"
+            : "border-transparent bg-[rgba(11,42,70,0.52)] backdrop-blur-md"
         }`}
       >
-        <div className="ui-container flex items-center justify-between">
-          <Link href="/" className="flex flex-col leading-none">
-            <span className="font-display text-2xl font-light tracking-[0.15em] gold-text">
-              УУДАМ
+        <div className="ui-container flex h-[78px] items-center justify-between gap-6">
+          <Link href="/" className="flex items-center gap-3" aria-label="Нүүр хуудас">
+            <span className="relative size-12 overflow-hidden rounded-full border border-white/35 bg-white shadow-sm">
+              <Image
+                src="/brand/uudam-logo.jpg"
+                alt="Уудам аялал жуулчлалын лого"
+                fill
+                sizes="48px"
+                className="object-cover"
+                priority
+              />
             </span>
-            <span className={`text-[9px] tracking-[0.3em] uppercase font-light transition-colors duration-500 ${scrolled ? "text-[#999]" : "text-[#ccc]"}`}>
-              Аялал Жуулчлал
+            <span className="leading-tight">
+              <span
+                className={`block text-[1rem] font-extrabold tracking-[0.12em] ${
+                  scrolled ? "text-[var(--brand-700)]" : "text-white"
+                }`}
+              >
+                УУДАМ
+              </span>
+              <span
+                className={`block text-[0.66rem] font-semibold tracking-[0.2em] ${
+                  scrolled ? "text-[var(--neutral-400)]" : "text-white/80"
+                }`}
+              >
+                АЯЛАЛ ЖУУЛЧЛАЛ
+              </span>
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-10">
-            {links.map((link) => (
+          <nav className="hidden items-center gap-7 lg:flex">
+            {navLinks.map((link) => (
               <a
-                key={link.label}
+                key={link.href}
                 href={link.href}
-                className={`text-[13px] tracking-wide transition-colors duration-300 font-light hover:text-gold ${
-                  scrolled ? "text-[#555]" : "text-[#ddd]"
+                className={`text-[0.9rem] font-semibold transition-colors ${
+                  scrolled
+                    ? "text-[var(--neutral-700)] hover:text-[var(--brand-700)]"
+                    : "text-white/88 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -57,63 +85,100 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden items-center gap-3 lg:flex">
             <a
               href="tel:77136633"
-              className={`text-[13px] tracking-wider transition-colors font-semibold ${scrolled ? "text-gold" : "text-gold-light"} hover:text-gold-light`}
+              className={`rounded-full border px-4 py-2 text-[0.86rem] font-semibold ${
+                scrolled
+                  ? "border-[rgba(17,62,103,0.2)] text-[var(--brand-700)]"
+                  : "border-white/35 text-white"
+              }`}
             >
               7713 6633
             </a>
-            <a
-              href="#packages"
-              className="inline-flex min-h-12 items-center justify-center px-6 py-3 rounded-lg text-[13px] tracking-wide font-semibold transition-all duration-300 text-white hover:scale-105 hover:shadow-[0_4px_20px_rgba(184,134,11,0.35)]"
-              style={{ background: "linear-gradient(135deg, #B8860B, #D4A017, #B8860B)" }}
-            >
-              Захиалах
+            <a href="#contact" className="btn-base btn-primary">
+              Зөвлөгөө авах
             </a>
           </div>
 
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-2"
+            aria-label="Цэс нээх"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className={`grid size-11 place-items-center rounded-full border lg:hidden ${
+              scrolled
+                ? "border-[rgba(17,62,103,0.2)] bg-[var(--brand-50)]"
+                : "border-white/30 bg-white/10"
+            }`}
           >
-            <span className={`block w-6 h-px transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2 bg-[#1A1A1A]" : scrolled ? "bg-[#1A1A1A]" : "bg-white"}`} />
-            <span className={`block w-4 h-px transition-all duration-300 bg-gold ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-6 h-px transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2 bg-[#1A1A1A]" : scrolled ? "bg-[#1A1A1A]" : "bg-white"}`} />
+            <span className="relative block h-3.5 w-5">
+              <span
+                className={`absolute left-0 top-0 h-0.5 w-5 rounded transition-all ${
+                  scrolled ? "bg-[var(--brand-700)]" : "bg-white"
+                } ${
+                  menuOpen ? "translate-y-[6px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-[6px] h-0.5 w-5 rounded transition-all ${
+                  scrolled ? "bg-[var(--brand-700)]" : "bg-white"
+                } ${
+                  menuOpen ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-3 h-0.5 w-5 rounded transition-all ${
+                  scrolled ? "bg-[var(--brand-700)]" : "bg-white"
+                } ${
+                  menuOpen ? "-translate-y-[6px] -rotate-45" : ""
+                }`}
+              />
+            </span>
           </button>
         </div>
-      </motion.header>
+      </header>
 
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -18 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-white flex flex-col items-center justify-center gap-10 md:hidden"
+            exit={{ opacity: 0, y: -18 }}
+            transition={{ duration: 0.24 }}
+            className="fixed inset-0 z-40 flex flex-col bg-[var(--brand-900)] px-6 pb-8 pt-28 lg:hidden"
           >
-            {links.map((link, i) => (
-              <motion.a
-                key={link.label}
-                href={link.href}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08 }}
+            <div className="space-y-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-lg font-bold text-white"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+
+            <div className="mt-6 space-y-3 rounded-2xl border border-white/15 bg-white/5 p-5 text-white/85">
+              <p className="text-sm font-semibold tracking-wide">Холбоо барих</p>
+              <a href="tel:77136633" className="block text-lg font-bold">
+                7713 6633
+              </a>
+              <a href="mailto:uudamtravel6@gmail.com" className="block text-sm">
+                uudamtravel6@gmail.com
+              </a>
+              <a
+                href="#contact"
                 onClick={() => setMenuOpen(false)}
-                className="font-display text-4xl font-light italic text-[#1A1A1A] hover:text-gold transition-colors"
+                className="btn-base btn-primary mt-2 w-full"
               >
-                {link.label}
-              </motion.a>
-            ))}
-            <a href="tel:77136633" className="mt-4 text-gold tracking-widest text-sm uppercase font-semibold">
-              7713 6633
-            </a>
+                Аяллаа төлөвлөх
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
   );
 }
-
-

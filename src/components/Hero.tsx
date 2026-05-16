@@ -1,132 +1,136 @@
-"use client";
+﻿"use client";
 
-import { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
-const scenes = [
-  { bg: "/destinations/tokyo-shibuya.jpg", location: "Токио, Япон" },
-  { bg: "/destinations/cappadocia.jpg", location: "Каппадок, Турк" },
-  { bg: "/destinations/bangkok-temple.jpg", location: "Бангкок, Тайланд" },
-  { bg: "/destinations/shanghai.jpg", location: "Шанхай, Хятад" },
+const departures = [
+  {
+    route: "Бээжин хотын багц",
+    date: "2026.06.12",
+    duration: "5 өдөр 4 шөнө",
+    price: "1,490,000₮",
+  },
+  {
+    route: "Токио, Фүжи уул",
+    date: "2026.07.03",
+    duration: "7 өдөр 6 шөнө",
+    price: "2,830,000₮",
+  },
+  {
+    route: "Каппадок, Истанбул",
+    date: "2026.07.18",
+    duration: "9 өдөр 8 шөнө",
+    price: "4,590,000₮",
+  },
 ];
 
+const heroFacts = ["Албан ёсны гэрээтэй үйлчилгээ", "Ил тод үнэ, тодорхой нөхцөл", "24/7 аяллын дэмжлэг"];
+
 export default function Hero() {
-  const [current, setCurrent] = useState(0);
-  const [transitioning, setTransitioning] = useState(false);
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 800], ["0%", "30%"]);
-  const opacity = useTransform(scrollY, [0, 480], [1, 0]);
-  const scale = useTransform(scrollY, [0, 800], [1, 1.08]);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTransitioning(true);
-      setTimeout(() => { setCurrent((c) => (c + 1) % scenes.length); setTransitioning(false); }, 800);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
-    <section className="relative h-screen min-h-170 overflow-hidden">
-      {scenes.map((scene, i) => (
-        <motion.div
-          key={i}
-          className="absolute inset-0"
-          style={{ scale }}
-          animate={{ opacity: i === current ? (transitioning ? 0 : 1) : 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <motion.div className="absolute inset-0 bg-center bg-cover" style={{ backgroundImage: `url(${scene.bg})`, y }} />
-          <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/25 to-black/70" />
-          <div className="absolute inset-0 bg-linear-to-r from-black/50 via-transparent to-transparent" />
-        </motion.div>
-      ))}
+    <section className="relative isolate min-h-[86vh] overflow-hidden pt-30">
+      <Image
+        src="/destinations/shanghai-premium.jpg"
+        alt="Дэлхийн аяллын чиглэл"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(11,42,70,0.92)_14%,rgba(11,42,70,0.66)_45%,rgba(11,42,70,0.3)_80%,rgba(11,42,70,0.65)_100%)]" />
 
-      <motion.div className="ui-container relative z-10 h-full flex flex-col justify-end pb-24" style={{ opacity }}>
-        <div className="max-w-3xl">
+      <div className="ui-container relative z-10 pb-16">
+        <div className="grid items-end gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="flex items-center gap-3 mb-6"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75 }}
+            className="max-w-[680px]"
           >
-            <div className="w-8 h-px bg-gold-light" />
-            <span className="text-[11px] tracking-[0.35em] uppercase text-gold-light font-light">
-              Онцгой аялалын туршлага
-            </span>
+            <span className="section-kicker text-white before:bg-white/45">Улаанбаатараас дэлхий рүү</span>
+            <h1 className="mt-5 text-[clamp(2.1rem,5.4vw,4.2rem)] font-black leading-[1.1] text-white">
+              Төлөвлөгөөтэй аялал,
+              <br />
+              итгэлтэй үйлчилгээ
+            </h1>
+            <p className="mt-6 max-w-[58ch] text-[1.04rem] leading-8 text-white/82">
+              Уудам Аялал Жуулчлал нь аяллын маршрут, визийн дэмжлэг, буудал, унаа, хөтөчийн
+              үйлчилгээг нэг системээр цэгцтэй зохион байгуулж, танд тайван бөгөөд чанартай
+              аяллын туршлага хүргэнэ.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#packages" className="btn-base btn-primary">
+                Багц аялал үзэх
+              </a>
+              <a
+                href="#contact"
+                className="btn-base border border-white/35 bg-white/10 text-white hover:bg-white/20"
+              >
+                Мэргэжилтэнтэй холбогдох
+              </a>
+            </div>
+
+            <ul className="mt-8 grid gap-2.5 sm:grid-cols-3">
+              {heroFacts.map((fact) => (
+                <li
+                  key={fact}
+                  className="rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-medium text-white/90"
+                >
+                  {fact}
+                </li>
+              ))}
+            </ul>
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-[clamp(3rem,7vw,6.5rem)] font-light leading-[0.95] tracking-tight text-white"
-            style={{ textShadow: "0 4px 40px rgba(0,0,0,0.5)" }}
+          <motion.aside
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.78, delay: 0.16 }}
+            className="surface-card overflow-hidden lg:max-w-[460px] lg:justify-self-end"
           >
-            Дэлхий таныг
-            <br />
-            <em className="italic gold-text">хүлээж байна</em>
-          </motion.h1>
+            <div className="border-b border-[var(--neutral-200)] bg-[var(--brand-50)] p-5">
+              <div className="flex items-center gap-3">
+                <span className="relative size-11 overflow-hidden rounded-full border border-[rgba(17,62,103,0.2)]">
+                  <Image
+                    src="/brand/uudam-logo.jpg"
+                    alt="Уудам лого"
+                    fill
+                    sizes="44px"
+                    className="object-cover"
+                  />
+                </span>
+                <div>
+                  <p className="text-sm font-bold text-[var(--brand-700)]">Ойрын хөдөлгөөнүүд</p>
+                  <p className="text-xs text-[var(--neutral-400)]">Хязгаартай суудалтай огноонууд</p>
+                </div>
+              </div>
+            </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.9 }}
-            className="mt-6 text-white/75 text-base font-light leading-relaxed max-w-md"
-            style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}
-          >
-            Монголын талаас дэлхийн гайхамшиг руу — таны мөрөөдлийн аяллыг бид бүтээнэ.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="mt-10 flex flex-wrap gap-4"
-          >
-            <a
-              href="#packages"
-              className="inline-flex min-h-12 items-center justify-center px-6 py-3 rounded-lg text-[13px] tracking-wide font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_30px_rgba(184,134,11,0.4)]"
-              style={{ background: "linear-gradient(135deg, #B8860B, #D4A017, #B8860B)" }}
-            >
-              Багцуудыг үзэх
-            </a>
-            <a
-              href="#destinations"
-              className="inline-flex min-h-12 items-center justify-center px-6 py-3 rounded-lg text-[13px] tracking-wide font-semibold text-white glass-dark hover:bg-white/20 transition-all duration-300"
-            >
-              Очир харах
-            </a>
-          </motion.div>
+            <div className="space-y-4 p-5">
+              {departures.map((item) => (
+                <article
+                  key={item.route}
+                  className="rounded-xl border border-[var(--neutral-200)] p-4 transition-colors hover:border-[var(--brand-700)]"
+                >
+                  <h3 className="text-[1.02rem] font-extrabold text-[var(--neutral-900)]">{item.route}</h3>
+                  <div className="mt-2 grid grid-cols-2 gap-y-2 text-sm">
+                    <p className="text-[var(--neutral-400)]">Хөдлөх огноо</p>
+                    <p className="text-right font-semibold text-[var(--neutral-900)]">{item.date}</p>
+                    <p className="text-[var(--neutral-400)]">Хугацаа</p>
+                    <p className="text-right font-semibold text-[var(--neutral-900)]">{item.duration}</p>
+                    <p className="text-[var(--neutral-400)]">Багц үнэ</p>
+                    <p className="text-right text-base font-extrabold text-[var(--brand-700)]">{item.price}</p>
+                  </div>
+                </article>
+              ))}
+              <a href="#contact" className="btn-base btn-secondary w-full">
+                Захиалгын зөвлөгөө авах
+              </a>
+            </div>
+          </motion.aside>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4 }}
-          className="absolute right-4 lg:right-8 bottom-24 flex flex-col items-end gap-6"
-        >
-          <div className="flex flex-col items-center gap-3">
-            {scenes.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className={`transition-all duration-500 rounded-full ${i === current ? "w-1 h-8 bg-gold-light" : "w-1 h-2 bg-white/30 hover:bg-white/60"}`}
-              />
-            ))}
-          </div>
-          <div className="text-right">
-            <p className="text-[10px] tracking-[0.3em] uppercase text-gold-light">Одоо үзэж байна</p>
-            <p className="text-[13px] text-white font-light mt-0.5">{scenes[current].location}</p>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        >
-          <span className="text-[9px] tracking-[0.4em] uppercase text-white/40">Гүйлгэх</span>
-          <div className="w-px h-10 bg-linear-to-b from-gold-light to-transparent" />
-        </motion.div>
-      </motion.div>
-
-      <div className="absolute top-0 left-0 right-0 h-32 bg-linear-to-b from-black/30 to-transparent z-10 pointer-events-none" />
+      </div>
     </section>
   );
 }
-
-

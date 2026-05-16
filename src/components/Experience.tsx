@@ -1,212 +1,101 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 
 const stats = [
-  { value: "12+", label: "Жилийн туршлага", sub: "Years of Excellence" },
-  { value: "8,000+", label: "Аялагч", sub: "Happy Travelers" },
-  { value: "24", label: "Улс орон", sub: "Countries" },
-  { value: "99%", label: "Сэтгэл ханамж", sub: "Satisfaction" },
+  { value: "12+", label: "Жилийн туршлага" },
+  { value: "8,000+", label: "Аялагч" },
+  { value: "24", label: "Улс, хотын чиглэл" },
+  { value: "99%", label: "Сэтгэл ханамж" },
 ];
 
-const features = [
+const reasons = [
   {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-        <path
-          d="M14 2L17.09 8.26L24 9.27L19 14.14L20.18 21.02L14 17.77L7.82 21.02L9 14.14L4 9.27L10.91 8.26L14 2Z"
-          stroke="#B8860B"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-    title: "Тусгайлан боловсруулсан",
-    sub: "Curated Experiences",
-    desc: "Туршлагатай мэргэжилтнүүд таны аяллыг нарийн нягт боловсруулна.",
+    title: "Нарийвчилсан төлөвлөлт",
+    text: "Маршрут, буудал, тээвэр, хөтөч, визийн шаардлагыг нэг хүснэгтэд уялдуулж зохион байгуулна.",
   },
   {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-        <path
-          d="M4 10L14 3L24 10L24 24L4 24Z"
-          stroke="#B8860B"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M10 24v-8h8v8"
-          stroke="#B8860B"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-    title: "Шууд нислэгийн сонголт",
-    sub: "Direct Flight Options",
-    desc: "Улаанбаатараас шууд нислэгийн холболтыг найдвартай хангана.",
+    title: "Ил тод гэрээ, нөхцөл",
+    text: "Үнэ, багтсан үйлчилгээ, нэмэлт зардал, цуцлалтын нөхцөлийг урьдчилан ойлгомжтой тайлбарлана.",
   },
   {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-        <rect
-          x="3"
-          y="5"
-          width="22"
-          height="18"
-          rx="2"
-          stroke="#B8860B"
-          strokeWidth="1.5"
-        />
-        <path d="M3 11h22" stroke="#B8860B" strokeWidth="1.5" />
-        <path
-          d="M9 2v6M19 2v6"
-          stroke="#B8860B"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M8 17h4M8 20h8"
-          stroke="#B8860B"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-    title: "Уян хатан хуваарь",
-    sub: "Flexible Scheduling",
-    desc: "Сарын явдлаас эхлэн бүлгийн болон хувийн аялал хүртэл захиалах боломжтой.",
+    title: "Хариуцлагатай баг",
+    text: "Аяллын өмнө болон аяллын явцад манай зөвлөх баг тасралтгүй дэмжлэг үзүүлдэг.",
   },
   {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-        <path
-          d="M14 3C9.03 3 5 7.03 5 12c0 7 9 15 9 15s9-8 9-15c0-4.97-4.03-9-9-9z"
-          stroke="#B8860B"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M11 12l2 2 4-4"
-          stroke="#B8860B"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-    title: "Эмнэлгийн аялал",
-    sub: "Medical Travel",
-    desc: "Хөххотын эмнэлгийн үзлэг, мэргэжлийн зөвлөгөөг багтаасан онцгой багц.",
+    title: "Зорилтот багц зөвлөмж",
+    text: "Гэр бүл, хос, байгууллага, эмнэлгийн зорилготой аялал бүрт тохирсон багц санал гаргана.",
   },
   {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-        <circle cx="14" cy="14" r="11" stroke="#B8860B" strokeWidth="1.5" />
-        <path
-          d="M14 8v6l4 2"
-          stroke="#B8860B"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-    title: "Цагийн тусламж",
-    sub: "24/7 Support",
-    desc: "Аяллын өмнө, явах үед болон буцаж ирсний дараа таны зүгт байна.",
+    title: "Чанартай түнш сүлжээ",
+    text: "Нислэг, буудал, орон нутгийн түншүүдтэй баталгаатай хамтран ажилладаг тул аялал тогтвортой.",
   },
   {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-        <path
-          d="M4 14s2-5 10-5 10 5 10 5-2 5-10 5S4 14 4 14z"
-          stroke="#B8860B"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <circle cx="14" cy="14" r="3" stroke="#B8860B" strokeWidth="1.5" />
-      </svg>
-    ),
-    title: "Ил тод үнэ",
-    sub: "Transparent Pricing",
-    desc: "Нуугдмал төлбөр байхгүй. Харсан үнэ нь яг төлөх үнэ — дүн дутуугүй.",
+    title: "Мобайлд ээлтэй мэдээлэл",
+    text: "Огноо, хугацаа, үнэ, маршрут зэрэг чухал мэдээлэл гар утсаар шууд уншихад хялбар бүтэцтэй.",
   },
 ];
+
+function ShieldIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 2l7 3v6c0 5.1-3 9.8-7 11-4-1.2-7-5.9-7-11V5l7-3z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 export default function Experience() {
   return (
-    <section id="about" className="ui-section bg-white">
+    <section id="about" className="ui-section">
       <div className="ui-container">
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-14 md:mb-16"
-        >
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <div className="w-10 h-px bg-gold" />
-            <span className="text-[11px] tracking-[0.35em] uppercase text-gold font-medium">Яагаад Уудам вэ</span>
-            <div className="w-10 h-px bg-gold" />
-          </div>
-          <h2 className="font-display text-4xl md:text-[3.5rem] font-medium leading-tight text-[#1A1A1A] mb-2">
-            Зүгээр аялал биш —
-            <br />
-            <em className="italic gold-text">Туршлага</em>
-          </h2>
-          <p className="text-xs text-[#bbb] tracking-[0.2em] uppercase mb-6">Not Just a Trip — An Experience</p>
-          <p className="text-[#666] font-light leading-relaxed text-base max-w-2xl mx-auto">
-            Монголоос дэлхийг аялах урлагийг боловсронгуй болгоход бид арав гаруй жил зарцуулсан.
-            Олон мянган монгол гэр бүл бидэнд итгэн аялсаар байна.
+        <div className="mb-10 space-y-4 md:mb-12">
+          <span className="section-kicker">Яагаад Уудам гэж</span>
+          <h2 className="section-title">Аялал бүрийг итгэлтэй, цэгцтэй зохион байгуулдаг</h2>
+          <p className="section-copy">
+            Манай зорилго бол зөвхөн тийз захиалах биш. Харин таны аяллыг эхнээс нь дуустал
+            эрсдэл багатай, цагийн хувьд оновчтой, чанарын баталгаатай байдлаар удирдах юм.
           </p>
-          <a
-            href="#contact"
-            className="mt-8 inline-flex items-center gap-3 text-[13px] tracking-widest uppercase text-gold hover:text-gold-light transition-colors group"
-          >
-            <span>Мэргэжилтэнтэй ярилцах</span>
-            <div className="w-8 h-px bg-gold group-hover:w-14 transition-all duration-300" />
-          </a>
-        </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-14 md:mb-16">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
+        <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {stats.map((item, index) => (
+            <motion.article
+              key={item.label}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="rounded-2xl p-7 md:p-8 bg-[#F9F5EC] border border-[#E8DFC8] text-center"
+              transition={{ duration: 0.45, delay: index * 0.05 }}
+              className="surface-card-soft p-5 text-center"
             >
-              <p className="font-display text-4xl md:text-5xl font-bold leading-none gold-text mb-3">
-                {stat.value}
-              </p>
-              <p className="text-[15px] text-[#333] font-semibold">{stat.label}</p>
-              <p className="text-[11px] text-[#bbb] tracking-wider mt-1">{stat.sub}</p>
-            </motion.div>
+              <p className="text-[2rem] font-black text-[var(--brand-700)]">{item.value}</p>
+              <p className="mt-1 text-sm font-semibold text-[var(--neutral-900)]">{item.label}</p>
+            </motion.article>
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
-          {features.map((feat, i) => (
-            <motion.div
-              key={feat.title}
-              initial={{ opacity: 0, y: 30 }}
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {reasons.map((reason, index) => (
+            <motion.article
+              key={reason.title}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ delay: i * 0.08, duration: 0.7 }}
-              className="group card-light rounded-2xl p-8 md:p-9 hover:border-gold/25 hover:shadow-md transition-all duration-500"
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.45, delay: index * 0.05 }}
+              className="surface-card p-5"
             >
-              <div className="mb-5 w-12 h-12 rounded-xl bg-[#F9F5EC] border border-[#E8DFC8] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                {feat.icon}
+              <div className="mb-4 inline-flex size-10 items-center justify-center rounded-full bg-[var(--brand-50)] text-[var(--brand-700)]">
+                <ShieldIcon />
               </div>
-              <h3 className="text-[18px] font-semibold text-[#1A1A1A] mb-1">{feat.title}</h3>
-              <p className="text-[11px] text-[#aaa] tracking-wider mb-3 uppercase">{feat.sub}</p>
-              <p className="text-[14px] text-[#666] font-light leading-relaxed">{feat.desc}</p>
-            </motion.div>
+              <h3 className="text-xl font-black">{reason.title}</h3>
+              <p className="mt-2 text-[0.95rem] leading-7">{reason.text}</p>
+            </motion.article>
           ))}
         </div>
       </div>
