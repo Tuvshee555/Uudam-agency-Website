@@ -28,7 +28,7 @@ const heroFacts = ["Албан ёсны гэрээтэй үйлчилгээ", "�
 
 export default function Hero() {
   return (
-    <section className="relative isolate min-h-[86vh] overflow-hidden pt-30">
+    <section className="relative isolate min-h-[86vh] overflow-hidden pt-[7.5rem]">
       <Image
         src="/destinations/shanghai-premium.jpg"
         alt="Дэлхийн аяллын чиглэл"

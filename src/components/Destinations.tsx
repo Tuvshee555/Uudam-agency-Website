@@ -88,14 +88,16 @@ export default function Destinations() {
                   alt={`${item.name} хотын зураг`}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-cover object-center transition-transform duration-500 hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(11,42,70,0.64)_100%)]" />
-                <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between text-white">
-                  <div>
-                    <p className="text-xs font-semibold tracking-[0.12em] text-white/80">{item.country}</p>
-                    <h3 className="mt-1 text-2xl font-black text-white">{item.name}</h3>
-                  </div>
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,42,70,0.1)_0%,rgba(11,42,70,0.25)_52%,rgba(11,42,70,0.88)_100%)]" />
+                <div className="absolute bottom-3 left-3 right-3 media-caption px-3 py-3 text-white">
+                  <p className="text-shadow-soft text-[0.72rem] font-bold tracking-[0.14em] text-white/92">
+                    {item.country}
+                  </p>
+                  <h3 className="text-shadow-soft mt-1 text-[1.4rem] font-black leading-tight text-white">
+                    {item.name}
+                  </h3>
                 </div>
               </div>
 

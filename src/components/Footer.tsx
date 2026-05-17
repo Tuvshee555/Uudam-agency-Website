@@ -54,10 +54,10 @@ export default function Footer() {
               Танд тохирсон төлөвлөгөөг мэргэжлийн баг богино хугацаанд боловсруулна.
             </p>
 
-            <div className="space-y-1 text-sm text-white/86">
-              <p>Утас: 7713 6633</p>
-              <p>Цахим шуудан: uudamtravel6@gmail.com</p>
-              <p>Фэйсбүүк: Уудам аялал жуулчлал</p>
+            <div className="space-y-1 text-sm">
+              <p className="text-white/85">Утас: 7713 6633</p>
+              <p className="text-white/85">Цахим шуудан: uudamtravel6@gmail.com</p>
+              <p className="text-white/85">Фэйсбүүк: Уудам аялал жуулчлал</p>
             </div>
           </div>
 
@@ -77,9 +77,9 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 border-t border-white/20 pt-6 text-sm text-white/65 sm:flex sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Уудам Аялал Жуулчлал. Бүх эрх хуулиар хамгаалагдсан.</p>
-          <p className="mt-2 sm:mt-0">Улаанбаатар хот, Монгол Улс</p>
+        <div className="mt-10 border-t border-white/20 pt-6 text-sm sm:flex sm:items-center sm:justify-between">
+          <p className="text-white/65">© {new Date().getFullYear()} Уудам Аялал Жуулчлал. Бүх эрх хуулиар хамгаалагдсан.</p>
+          <p className="mt-2 text-white/65 sm:mt-0">Улаанбаатар хот, Монгол Улс</p>
         </div>
       </div>
     </footer>

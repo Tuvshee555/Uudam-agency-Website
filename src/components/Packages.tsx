@@ -254,12 +254,16 @@ export default function Packages() {
                     alt={`${item.destination} чиглэлийн зураг`}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    className="object-cover"
+                    className="object-cover object-center"
                   />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_35%,rgba(11,42,70,0.8)_100%)]" />
-                  <div className="absolute inset-x-4 bottom-4">
-                    <p className="text-xs font-semibold tracking-[0.08em] text-white/80">{item.country}</p>
-                    <h3 className="mt-1 text-[1.45rem] font-black text-white">{item.destination}</h3>
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,42,70,0.12)_0%,rgba(11,42,70,0.22)_44%,rgba(11,42,70,0.92)_100%)]" />
+                  <div className="absolute inset-x-4 bottom-4 media-caption px-3.5 py-3.5">
+                    <p className="text-shadow-soft text-[0.72rem] font-bold tracking-[0.14em] text-white/92">
+                      {item.country}
+                    </p>
+                    <h3 className="text-shadow-soft mt-1 text-[1.26rem] font-black leading-tight text-white">
+                      {item.destination}
+                    </h3>
                   </div>
                 </div>
 
