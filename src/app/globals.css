@@ -90,7 +90,7 @@
     cursor: pointer;
   }
 
-  img {
+  img:not([data-nimg="fill"]) {
     max-width: 100%;
     height: auto;
   }
