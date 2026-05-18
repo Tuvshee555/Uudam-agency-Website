@@ -23,8 +23,8 @@ export default function Destinations() {
         <div className="mt-12 grid gap-4 lg:grid-cols-3 lg:auto-rows-70 xl:auto-rows-75">
           {featuredDestinations.map((destination, index) => {
             const featuredClass = destination.featured
-              ? "min-h-105 lg:col-span-2 lg:row-span-2 lg:min-h-0"
-              : "min-h-70 lg:min-h-0";
+              ? "min-h-105 lg:col-span-2 lg:row-span-2 lg:min-h-0 h-full"
+              : "min-h-70 lg:min-h-0 h-full";
 
             return (
               <Reveal key={destination.name} delay={index * 0.06} className={featuredClass}>

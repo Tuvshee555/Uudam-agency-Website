@@ -6,12 +6,12 @@ import Reveal from "./Reveal";
 import SectionIntro from "./SectionIntro";
 
 const layoutClasses = [
-  "min-h-80 md:col-span-7 md:row-span-2 md:min-h-0",
-  "min-h-60 md:col-span-5 md:row-span-1 md:min-h-0",
-  "min-h-60 md:col-span-5 md:row-span-1 md:min-h-0",
-  "min-h-55 md:col-span-4 md:row-span-1 md:min-h-0",
-  "min-h-55 md:col-span-4 md:row-span-1 md:min-h-0",
-  "min-h-55 md:col-span-4 md:row-span-1 md:min-h-0",
+  "h-full min-h-80 md:col-span-7 md:row-span-2 md:min-h-0",
+  "h-full min-h-60 md:col-span-5 md:row-span-1 md:min-h-0",
+  "h-full min-h-60 md:col-span-5 md:row-span-1 md:min-h-0",
+  "h-full min-h-55 md:col-span-4 md:row-span-1 md:min-h-0",
+  "h-full min-h-55 md:col-span-4 md:row-span-1 md:min-h-0",
+  "h-full min-h-55 md:col-span-4 md:row-span-1 md:min-h-0",
 ] as const;
 
 export default function JournalGallery() {
