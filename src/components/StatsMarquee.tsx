@@ -13,13 +13,13 @@ const items = [
 
 export default function StatsMarquee() {
   return (
-    <section className="border-y border-[var(--neutral-200)] bg-white py-3">
+    <section className="border-y border-(--neutral-200) bg-white py-3">
       <div className="ui-container overflow-hidden">
         <div className="flex animate-marquee whitespace-nowrap">
           {[...items, ...items].map((item, index) => (
             <div key={`${item}-${index}`} className="mx-7 inline-flex items-center gap-3">
-              <span className="size-1.5 rounded-full bg-[var(--brand-700)]" />
-              <span className="text-[0.78rem] font-semibold tracking-[0.08em] text-[var(--neutral-400)]">
+              <span className="size-1.5 rounded-full bg-(--brand-700)" />
+              <span className="text-[0.78rem] font-semibold tracking-[0.08em] text-(--neutral-400)">
                 {item}
               </span>
             </div>

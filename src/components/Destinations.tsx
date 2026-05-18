@@ -1,118 +1,74 @@
-﻿"use client";
+﻿import Image from "next/image";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
+import { featuredDestinations } from "@/data/home";
 
-const destinations = [
-  {
-    name: "Бээжин",
-    country: "БНХАУ",
-    image: "/destinations/beijing-premium.jpg",
-    season: "4-10 сар",
-    flight: "Шууд нислэг",
-    summary: "Түүх, ордон, соёл, худалдааг нэг аяллаар цэгцтэй үзэх боломжтой хот.",
-  },
-  {
-    name: "Шанхай",
-    country: "БНХАУ",
-    image: "/destinations/shanghai-premium.jpg",
-    season: "Бүх улирал",
-    flight: "Шууд нислэг",
-    summary: "Орчин үеийн хотын хэмнэл, тансаг буудал, өндөр зэрэглэлийн үйлчилгээ.",
-  },
-  {
-    name: "Токио",
-    country: "Япон",
-    image: "/destinations/tokyo-premium.jpg",
-    season: "3-11 сар",
-    flight: "Шилжиж нисэх",
-    summary: "Дэвшилтэт технологи, уламжлалт соёл, цэвэр зохион байгуулалттай маршрут.",
-  },
-  {
-    name: "Каппадок",
-    country: "Турк",
-    image: "/destinations/cappadocia-premium.jpg",
-    season: "4-10 сар",
-    flight: "Шилжиж нисэх",
-    summary: "Өвөрмөц хадат тогтоц, халуун агаарын бөмбөлөг, сонгодог түүхэн дурсгал.",
-  },
-  {
-    name: "Бангкок",
-    country: "Тайланд",
-    image: "/destinations/bangkok-premium.jpg",
-    season: "11-4 сар",
-    flight: "Шилжиж нисэх",
-    summary: "Дулаан уур амьсгал, амралт, хоолны баялаг соёлыг хослуулсан чиглэл.",
-  },
-  {
-    name: "Чүнчин",
-    country: "БНХАУ",
-    image: "/destinations/chongqing-premium.jpg",
-    season: "3-11 сар",
-    flight: "Шууд нислэг",
-    summary: "Уулан хотын өвөрмөц дүр төрх, хотын үзэмж, амтат хоолны аяллын төв.",
-  },
-];
+import Reveal from "./Reveal";
+import SectionIntro from "./SectionIntro";
 
 export default function Destinations() {
   return (
-    <section id="destinations" className="ui-section">
+    <section id="destinations" className="section-shell bg-(--color-canvas) text-(--color-copy-strong)">
       <div className="ui-container">
-        <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-3xl space-y-4">
-            <span className="section-kicker">Онцлох чиглэлүүд</span>
-            <h2 className="section-title">Аялахад хамгийн их сонгогддог хотууд</h2>
-            <p className="section-copy">
-              Бид чиглэл бүрт нислэг, буудал, маршрутын логистикийг урьдчилан шалгаж,
-              захиалагч бүрт ойлгомжтой бүтэцтэй аяллын хувилбар санал болгодог.
-            </p>
-          </div>
-          <a href="#packages" className="btn-base btn-secondary w-fit">
-            Бүх багц үзэх
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <SectionIntro
+            eyebrow="Онцлох чиглэлүүд"
+            title="Дүр зураг, хэмнэл, амралтын мэдрэмжийг нэгтгэсэн маршрутууд."
+            copy="Бид чиглэл бүрийг зөвхөн алдартай гэдгээр нь бус, зөв хэмнэл, зөв байрлал, зөв үйлчилгээтэй үедээ хамгийн сайхнаар мэдрэгдэх боломжийг нь харж сонгодог."
+          />
+          <a href="#packages" className="ui-button ui-button-secondary w-fit">
+            Онцгой багцууд үзэх
           </a>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {destinations.map((item, index) => (
-            <motion.article
-              key={item.name}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.55, delay: index * 0.06 }}
-              className="surface-card overflow-hidden"
-            >
-              <div className="relative aspect-[16/11] overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={`${item.name} хотын зураг`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover object-center transition-transform duration-500 hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,42,70,0.1)_0%,rgba(11,42,70,0.25)_52%,rgba(11,42,70,0.88)_100%)]" />
-                <div className="absolute bottom-3 left-3 right-3 media-caption px-3 py-3 text-white">
-                  <p className="text-shadow-soft text-[0.72rem] font-bold tracking-[0.14em] text-white/92">
-                    {item.country}
-                  </p>
-                  <h3 className="text-shadow-soft mt-1 text-[1.4rem] font-black leading-tight text-white">
-                    {item.name}
-                  </h3>
-                </div>
-              </div>
+        <div className="mt-12 grid gap-4 lg:grid-cols-3 lg:auto-rows-70 xl:auto-rows-75">
+          {featuredDestinations.map((destination, index) => {
+            const featuredClass = destination.featured
+              ? "min-h-105 lg:col-span-2 lg:row-span-2 lg:min-h-0"
+              : "min-h-70 lg:min-h-0";
 
-              <div className="space-y-4 p-5">
-                <p className="text-[0.96rem] leading-7 text-[var(--neutral-700)]">{item.summary}</p>
-                <div className="flex flex-wrap gap-2">
-                  <span className="chip">Улирал: {item.season}</span>
-                  <span className="chip">Нислэг: {item.flight}</span>
-                </div>
-                <a href="#contact" className="btn-base btn-secondary w-full">
-                  Энэ чиглэлээр зөвлөгөө авах
-                </a>
-              </div>
-            </motion.article>
-          ))}
+            return (
+              <Reveal key={destination.name} delay={index * 0.06} className={featuredClass}>
+                <article className="group relative h-full overflow-hidden rounded-4xl border border-(--color-line) bg-black shadow-(--shadow-card)">
+                  <Image
+                    src={destination.image}
+                    alt={`${destination.name} чиглэлийн зураг`}
+                    fill
+                    placeholder="blur"
+                    sizes={destination.featured ? "(max-width: 1024px) 100vw, 66vw" : "(max-width: 1024px) 100vw, 33vw"}
+                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,27,45,0.04)_0%,rgba(8,27,45,0.18)_35%,rgba(8,27,45,0.92)_100%)]" />
+                  <div className="absolute inset-x-4 top-4 flex items-center justify-between gap-3">
+                    <span className="info-chip border-white/16 bg-[rgba(10,33,54,0.4)] text-white/82">
+                      {destination.length}
+                    </span>
+                    <span className="rounded-full border border-white/12 bg-[rgba(10,33,54,0.36)] px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/58">
+                      {destination.country}
+                    </span>
+                  </div>
+
+                  <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                    <p className="text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-(--color-brand-mist)">
+                      {destination.mood}
+                    </p>
+                    <h3 className="mt-2 font-display text-[2.1rem] leading-none text-white sm:text-[2.6rem]">
+                      {destination.name}
+                    </h3>
+                    <p className="mt-3 max-w-[42ch] text-sm leading-7 text-white/70 sm:text-[0.98rem]">
+                      {destination.summary}
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {destination.highlights.map((highlight) => (
+                        <span key={highlight} className="info-chip text-white/74">
+                          {highlight}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

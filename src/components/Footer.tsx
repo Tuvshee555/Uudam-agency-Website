@@ -1,73 +1,85 @@
-﻿"use client";
-
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 
-const navGroups = [
+import logo from "../../public/brand/uudam-logo.jpg";
+
+const footerGroups = [
   {
-    title: "Хурдан холбоос",
+    title: "Судлах",
     links: [
-      { label: "Нүүр", href: "/" },
-      { label: "Чиглэл", href: "#destinations" },
-      { label: "Аяллын багц", href: "#packages" },
-      { label: "Холбоо", href: "#contact" },
+      { label: "Нээлт", href: "#discover" },
+      { label: "Чиглэлүүд", href: "#destinations" },
+      { label: "Багцууд", href: "#packages" },
+      { label: "Түүхүүд", href: "#stories" },
     ],
   },
   {
-    title: "Үйлчилгээ",
+    title: "Аяллын дизайн",
     links: [
-      { label: "Гэр бүлийн аялал", href: "#packages" },
-      { label: "Хосын аялал", href: "#packages" },
-      { label: "Эмнэлгийн аялал", href: "#packages" },
-      { label: "Байгууллагын аялал", href: "#packages" },
+      { label: "Хувийн хотын аялал", href: "#packages" },
+      { label: "Сонгомол туршлага", href: "#experiences" },
+      { label: "Зургийн тэмдэглэл", href: "#journal" },
+      { label: "Аяллаа төлөвлөх", href: "#contact" },
     ],
   },
   {
-    title: "Мэдээлэл",
+    title: "Холбогдох",
     links: [
-      { label: "Яагаад Уудам гэж", href: "#about" },
-      { label: "Үйлчлүүлэгчийн сэтгэгдэл", href: "#reviews" },
-      { label: "Үнэ ба нөхцөл", href: "#packages" },
-      { label: "Захиалгын зөвлөгөө", href: "#contact" },
+      { label: "+976 7713 6633", href: "tel:+97677136633" },
+      { label: "uudamtravel6@gmail.com", href: "mailto:uudamtravel6@gmail.com" },
+      { label: "Фэйсбүүк", href: "https://www.facebook.com/uudamtravelagency" },
+      { label: "Ватсапп", href: "https://wa.me/97677136633" },
     ],
   },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-[var(--brand-900)] text-white">
-      <div className="ui-container py-14">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
-          <div className="space-y-5">
-            <Link href="/" className="inline-flex items-center gap-3">
-              <span className="relative size-12 overflow-hidden rounded-full border border-white/30 bg-white">
-                <Image src="/brand/uudam-logo.jpg" alt="Уудам лого" fill sizes="48px" className="object-cover" />
+    <footer className="bg-(--color-ink) text-white">
+      <div className="ui-container py-14 sm:py-16">
+        <div className="grid gap-10 xl:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
+          <div className="space-y-6">
+            <Link href="/" className="inline-flex items-center gap-3" aria-label="Уудам Аяллын нүүр хуудас">
+              <span className="relative size-12 overflow-hidden rounded-full border border-white/14 bg-white/10">
+                <Image src={logo} alt="Уудам Аяллын лого" fill sizes="48px" className="object-cover" />
               </span>
               <span>
-                <span className="block text-base font-extrabold tracking-[0.12em]">УУДАМ</span>
-                <span className="block text-[0.68rem] tracking-[0.18em] text-white/70">АЯЛАЛ ЖУУЛЧЛАЛ</span>
+                <span className="block font-display text-[1.38rem] tracking-[0.08em] text-white">УУДАМ</span>
+                <span className="mt-1 block text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/54">
+                  Аялал
+                </span>
               </span>
             </Link>
 
-            <p className="max-w-sm text-sm leading-7 text-white/80">
-              Улаанбаатараас олон улсын чиглэлд итгэлтэй, цэвэр бүтэцтэй аяллын үйлчилгээ.
-              Танд тохирсон төлөвлөгөөг мэргэжлийн баг богино хугацаанд боловсруулна.
+            <p className="max-w-120 text-sm leading-8 text-white/68">
+              Уудам Аялал Улаанбаатараас гарах чиглэл бүрийг кино мэт дүр зураг, чанартай байрлал,
+              хувийн анхааралтай үйлчилгээтэйгээр нямбай бүтээдэг.
             </p>
 
-            <div className="space-y-1 text-sm">
-              <p className="text-white/85">Утас: 7713 6633</p>
-              <p className="text-white/85">Цахим шуудан: uudamtravel6@gmail.com</p>
-              <p className="text-white/85">Фэйсбүүк: Уудам аялал жуулчлал</p>
+            <div className="flex flex-wrap gap-2">
+              <a href="#contact" className="ui-button ui-button-primary">
+                Аяллаа төлөвлөх
+              </a>
+              <a href="#journal" className="ui-button ui-button-secondary">
+                Тэмдэглэл үзэх
+              </a>
             </div>
           </div>
 
-          {navGroups.map((group) => (
+          {footerGroups.map((group) => (
             <div key={group.title}>
-              <p className="text-sm font-bold tracking-[0.08em] text-white/95">{group.title}</p>
-              <ul className="mt-4 space-y-2 text-sm text-white/78">
+              <p className="text-[0.76rem] font-semibold uppercase tracking-[0.22em] text-(--color-brand-mist)">
+                {group.title}
+              </p>
+              <ul className="mt-5 space-y-3 text-sm text-white/66">
                 {group.links.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="transition-colors hover:text-white">
+                    <a
+                      href={link.href}
+                      target={link.href.startsWith("http") ? "_blank" : undefined}
+                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="transition-colors hover:text-white"
+                    >
                       {link.label}
                     </a>
                   </li>
@@ -77,9 +89,9 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 border-t border-white/20 pt-6 text-sm sm:flex sm:items-center sm:justify-between">
-          <p className="text-white/65">© {new Date().getFullYear()} Уудам Аялал Жуулчлал. Бүх эрх хуулиар хамгаалагдсан.</p>
-          <p className="mt-2 text-white/65 sm:mt-0">Улаанбаатар хот, Монгол Улс</p>
+        <div className="mt-10 border-t border-white/10 pt-6 text-sm text-white/52 sm:flex sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Уудам Аялал. Бүх эрх хуулиар хамгаалагдсан.</p>
+          <p className="mt-2 sm:mt-0">Улаанбаатар, Монгол</p>
         </div>
       </div>
     </footer>

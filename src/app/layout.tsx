@@ -1,6 +1,14 @@
-﻿import type { Metadata } from "next";
-import { Manrope, Merriweather } from "next/font/google";
+﻿import type { Metadata, Viewport } from "next";
+import { Manrope, Rubik } from "next/font/google";
 import "./globals.css";
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  process.env.VERCEL_PROJECT_PRODUCTION_URL ??
+  process.env.VERCEL_URL ??
+  "http://localhost:3000";
+
+const metadataBase = new URL(siteUrl.startsWith("http") ? siteUrl : `https://${siteUrl}`);
 
 const bodyFont = Manrope({
   variable: "--font-body",
@@ -8,31 +16,43 @@ const bodyFont = Manrope({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const headingFont = Merriweather({
-  variable: "--font-heading",
+const displayFont = Rubik({
+  variable: "--font-display",
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "700", "900"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Уудам Аялал Жуулчлал",
+  metadataBase,
+  title: "Уудам Аялал | Улаанбаатараас дээд зэрэглэлийн аялал",
   description:
-    "Уудам Аялал Жуулчлал - гадаад аяллын найдвартай, цэгцтэй, дээд зэрэглэлийн үйлчилгээ.",
+    "Уудам Аялал нь Улаанбаатараас гарах дээд зэрэглэлийн аяллыг тайван хэмнэл, баталгаатай түншлэл, анхааралтай төлөвлөлтөөр бүтээнэ.",
   keywords: [
-    "Уудам аялал",
-    "аялал жуулчлал",
-    "гадаад аялал",
-    "Хятад аялал",
+    "Уудам Аялал",
+    "тансаг аялал",
+    "Улаанбаатар аяллын агентлаг",
+    "гадаад аяллын багц",
+    "хувийн аялал төлөвлөлт",
     "Япон аялал",
-    "Тайланд аялал",
-    "Турк аялал",
+    "Хятад аялал",
   ],
+  applicationName: "Уудам Аялал",
+  category: "аялал",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Уудам Аялал Жуулчлал",
+    title: "Уудам Аялал | Улаанбаатараас дээд зэрэглэлийн аялал",
     description:
-      "Улаанбаатараас дэлхийн шилдэг чиглэл рүү төлөвлөгөөтэй, тав тухтай аяллын багц.",
+      "Кино мэт чиглэлүүд, сонгомол багцууд, хувийн анхааралтай аяллын төлөвлөлт.",
+    siteName: "Уудам Аялал",
+    locale: "mn_MN",
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#113e67",
 };
 
 export default function RootLayout({
@@ -41,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="mn" className={`${bodyFont.variable} ${headingFont.variable}`}>
+    <html lang="mn" className={`${bodyFont.variable} ${displayFont.variable}`}>
       <body className="antialiased">{children}</body>
     </html>
   );

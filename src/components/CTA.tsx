@@ -1,186 +1,85 @@
-﻿"use client";
+﻿import Image from "next/image";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { FormEvent, useState } from "react";
+import contactVisual from "../../public/destinations/zhangjiajie.jpg";
+
+import BookingForm from "./BookingForm";
+import Reveal from "./Reveal";
+import SectionIntro from "./SectionIntro";
 
 const channels = [
-  { title: "Утас", value: "7713 6633", href: "tel:77136633" },
-  { title: "Цахим шуудан", value: "uudamtravel6@gmail.com", href: "mailto:uudamtravel6@gmail.com" },
+  { title: "Утас", value: "+976 7713 6633", href: "tel:+97677136633" },
+  { title: "Имэйл", value: "uudamtravel6@gmail.com", href: "mailto:uudamtravel6@gmail.com" },
   {
     title: "Фэйсбүүк",
-    value: "Уудам аялал жуулчлал",
+    value: "facebook.com/uudamtravelagency",
     href: "https://www.facebook.com/uudamtravelagency",
   },
+  { title: "Ватсапп", value: "wa.me/97677136633", href: "https://wa.me/97677136633" },
 ];
 
 export default function CTA() {
-  const [sent, setSent] = useState(false);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-
-    const name = (formData.get("name") as string)?.trim();
-    const phone = (formData.get("phone") as string)?.trim();
-    const destination = (formData.get("destination") as string)?.trim();
-    const month = (formData.get("month") as string)?.trim();
-    const travelers = (formData.get("travelers") as string)?.trim();
-    const note = (formData.get("note") as string)?.trim();
-
-    const message = [
-      "Сайн байна уу?",
-      "Уудам аяллын зөвлөгөө авах хүсэлт илгээлээ.",
-      `Нэр: ${name}`,
-      `Утас: ${phone}`,
-      `Чиглэл: ${destination}`,
-      `Төлөвлөсөн сар: ${month}`,
-      `Зорчигчийн тоо: ${travelers}`,
-      `Нэмэлт хүсэлт: ${note || "Байхгүй"}`,
-    ].join("\n");
-
-    window.open(`https://wa.me/97677136633?text=${encodeURIComponent(message)}`, "_blank");
-    event.currentTarget.reset();
-    setSent(true);
-  };
-
   return (
-    <section id="contact" className="ui-section bg-[var(--brand-50)]">
+    <section id="contact" className="section-shell bg-(--color-canvas) text-(--color-copy-strong)">
       <div className="ui-container">
-        <div className="mb-10 space-y-4 md:mb-12">
-          <span className="section-kicker">Захиалга, зөвлөгөө</span>
-          <h2 className="section-title">Аяллаа өнөөдрөөс төлөвлөе</h2>
-          <p className="section-copy">
-            Доорх маягтыг бөглөөд илгээнэ үү. Манай зөвлөх баг таны хүсэлт дээр үндэслэн
-            тохирсон багц, огноо, үнийн хувилбарыг богино хугацаанд илгээнэ.
-          </p>
-        </div>
-
-        <div className="grid gap-6 xl:grid-cols-[1fr_1.2fr]">
-          <motion.aside
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="surface-card space-y-5 p-5 sm:p-6"
-          >
-            <div className="flex items-center gap-3">
-              <span className="relative size-12 overflow-hidden rounded-full border border-[rgba(17,62,103,0.25)]">
-                <Image src="/brand/uudam-logo.jpg" alt="Уудам лого" fill sizes="48px" className="object-cover" />
-              </span>
-              <div>
-                <p className="text-sm font-extrabold text-[var(--brand-700)]">Уудам Аялал Жуулчлал</p>
-                <p className="text-xs text-[var(--neutral-400)]">Итгэлтэй, төлөвлөгөөтэй аяллын хамтрагч</p>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              {channels.map((item) => (
-                <a
-                  key={item.title}
-                  href={item.href}
-                  target={item.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noopener noreferrer"
-                  className="block rounded-xl border border-[var(--neutral-200)] bg-white px-4 py-3 transition-colors hover:border-[var(--brand-700)]"
-                >
-                  <p className="text-xs font-bold tracking-[0.08em] text-[var(--neutral-400)]">{item.title}</p>
-                  <p className="mt-1 text-[0.96rem] font-semibold text-[var(--neutral-900)]">{item.value}</p>
-                </a>
-              ))}
-            </div>
-
-            <div className="rounded-xl bg-white p-4 text-sm leading-7 text-[var(--neutral-700)]">
-              <p className="font-semibold text-[var(--neutral-900)]">Ажлын цаг</p>
-              <p>Даваа - Бямба, 09:00 - 19:00</p>
-              <p>Нямд утсаар урьдчилан холбогдоно</p>
-            </div>
-          </motion.aside>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.08 }}
-            className="surface-card p-5 sm:p-6"
-          >
-            <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label htmlFor="name" className="form-label">
-                  Нэр
-                </label>
-                <input id="name" name="name" required className="form-field" placeholder="Жишээ: Батбаяр" />
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="form-label">
-                  Утас
-                </label>
-                <input
-                  id="phone"
-                  name="phone"
-                  required
-                  className="form-field"
-                  placeholder="Жишээ: 99112233"
-                  inputMode="tel"
+        <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+          <Reveal>
+            <div className="relative overflow-hidden rounded-4xl bg-(--color-ink) text-white shadow-(--shadow-card)">
+              <div className="absolute inset-0">
+                <Image
+                  src={contactVisual}
+                  alt="Захиалгын хэсгийн байгалийн зураг"
+                  fill
+                  placeholder="blur"
+                  sizes="(max-width: 1280px) 100vw, 42vw"
+                  className="object-cover object-center"
                 />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,27,45,0.28)_0%,rgba(8,27,45,0.82)_100%)]" />
               </div>
 
-              <div>
-                <label htmlFor="destination" className="form-label">
-                  Сонирхож буй чиглэл
-                </label>
-                <select id="destination" name="destination" required className="form-field">
-                  <option value="">Сонгоно уу</option>
-                  <option value="Бээжин">Бээжин</option>
-                  <option value="Шанхай">Шанхай</option>
-                  <option value="Токио">Токио</option>
-                  <option value="Каппадок">Каппадок</option>
-                  <option value="Бангкок">Бангкок</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="month" className="form-label">
-                  Төлөвлөсөн сар
-                </label>
-                <input id="month" name="month" className="form-field" placeholder="Жишээ: 2026 оны 7 сар" />
-              </div>
-
-              <div className="sm:col-span-2">
-                <label htmlFor="travelers" className="form-label">
-                  Зорчигчийн тоо
-                </label>
-                <input id="travelers" name="travelers" className="form-field" placeholder="Жишээ: 2 том хүн, 1 хүүхэд" />
-              </div>
-
-              <div className="sm:col-span-2">
-                <label htmlFor="note" className="form-label">
-                  Нэмэлт хүсэлт
-                </label>
-                <textarea
-                  id="note"
-                  name="note"
-                  rows={4}
-                  className="form-field resize-y"
-                  placeholder="Төсөв, буудлын ангилал, онцгой шаардлагаа бичнэ үү"
-                />
-              </div>
-
-              <div className="sm:col-span-2">
-                <button type="submit" className="btn-base btn-primary w-full">
-                  Зөвлөгөөний хүсэлт илгээх
-                </button>
-                <p className="mt-2 text-xs text-[var(--neutral-400)]">
-                  Илгээх товчийг дарахад Ватсап цонх нээгдэж хүсэлт автоматаар бөглөгдөнө.
-                </p>
-                {sent && (
-                  <p className="mt-2 text-sm font-semibold text-[var(--brand-700)]">
-                    Хүсэлт амжилттай бэлтгэгдлээ. Манай баг танд удахгүй холбогдоно.
+              <div className="relative z-10 flex min-h-135 flex-col justify-between gap-8 p-6 sm:min-h-155 sm:p-8">
+                <div className="max-w-120">
+                  <p className="text-[0.74rem] font-semibold uppercase tracking-[0.24em] text-(--color-brand-mist)">
+                    Сүүлийн алхам
                   </p>
-                )}
+                  <h2 className="mt-4 font-display text-[2.8rem] leading-[0.92] text-white sm:text-[3.4rem]">
+                    Та хүссэн аяллаа хэл, үлдсэнийг нь бид бүрдүүлнэ.
+                  </h2>
+                  <p className="mt-5 text-base leading-8 text-white/74">
+                    Чиглэл, хугацаа, аяллаас авах мэдрэмжээ бидэнд бичээрэй. Бид ердийн жагсаалт биш,
+                    танд тохирсон нямбай дараагийн алхмыг санал болгоно.
+                  </p>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {channels.map((channel) => (
+                    <a
+                      key={channel.title}
+                      href={channel.href}
+                      target={channel.href.startsWith("http") ? "_blank" : undefined}
+                      rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="rounded-[1.35rem] border border-white/10 bg-[rgba(10,33,54,0.58)] px-4 py-4 backdrop-blur-md transition-colors hover:bg-[rgba(10,33,54,0.72)]"
+                    >
+                      <p className="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-(--color-brand-mist)">
+                        {channel.title}
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-white/78">{channel.value}</p>
+                    </a>
+                  ))}
+                </div>
               </div>
-            </form>
-          </motion.div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.12}>
+            <div className="editorial-card p-6 sm:p-8 lg:p-10">
+              <SectionIntro
+                eyebrow="Аяллаа эхлүүлэх"
+                title="Тансаг аялал тодорхой хүсэлтээс эхэлдэг."
+                copy="Хаашаа явах, ямар мэдрэмж хүсэж байгаагаа доорх маягтаар хуваалцаарай. Үлдсэн маршрут, хэмнэл, нямбай жижиг деталь бүрийг бид хариуцна."
+              />
+              <BookingForm />
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
