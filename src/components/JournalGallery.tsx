@@ -6,12 +6,21 @@ import Reveal from "./Reveal";
 import SectionIntro from "./SectionIntro";
 
 const layoutClasses = [
-  "h-full min-h-80 md:col-span-7 md:row-span-2 md:min-h-0",
-  "h-full min-h-60 md:col-span-5 md:row-span-1 md:min-h-0",
-  "h-full min-h-60 md:col-span-5 md:row-span-1 md:min-h-0",
-  "h-full min-h-55 md:col-span-4 md:row-span-1 md:min-h-0",
-  "h-full min-h-55 md:col-span-4 md:row-span-1 md:min-h-0",
-  "h-full min-h-55 md:col-span-4 md:row-span-1 md:min-h-0",
+  "md:col-span-7 md:row-span-2",
+  "md:col-span-5 md:row-span-1",
+  "md:col-span-5 md:row-span-1",
+  "md:col-span-4 md:row-span-1",
+  "md:col-span-4 md:row-span-1",
+  "md:col-span-4 md:row-span-1",
+] as const;
+
+const articleMinH = [
+  "min-h-80 md:min-h-[540px]",
+  "min-h-60 md:min-h-64",
+  "min-h-60 md:min-h-64",
+  "min-h-56 md:min-h-60",
+  "min-h-56 md:min-h-60",
+  "min-h-56 md:min-h-60",
 ] as const;
 
 export default function JournalGallery() {
@@ -29,10 +38,10 @@ export default function JournalGallery() {
           </a>
         </div>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-12 md:auto-rows-55 xl:auto-rows-60">
+        <div className="mt-12 grid gap-4 md:grid-cols-12">
           {journalEntries.map((entry, index) => (
             <Reveal key={entry.place} delay={index * 0.05} className={layoutClasses[index]}>
-              <article className="group relative h-full overflow-hidden rounded-4xl border border-(--color-line) bg-black shadow-(--shadow-card)">
+              <article className={`group relative overflow-hidden rounded-4xl border border-(--color-line) bg-black shadow-(--shadow-card) ${articleMinH[index]}`}>
                 <Image
                   src={entry.image}
                   alt={`${entry.place} зургийн тэмдэглэл`}

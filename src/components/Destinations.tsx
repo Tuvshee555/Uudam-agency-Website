@@ -20,15 +20,15 @@ export default function Destinations() {
           </a>
         </div>
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-3 lg:auto-rows-70 xl:auto-rows-75">
+        <div className="mt-12 grid gap-4 lg:grid-cols-3">
           {featuredDestinations.map((destination, index) => {
             const featuredClass = destination.featured
-              ? "min-h-105 lg:col-span-2 lg:row-span-2 lg:min-h-0 h-full"
-              : "min-h-70 lg:min-h-0 h-full";
+              ? "lg:col-span-2 lg:row-span-2"
+              : "";
 
             return (
               <Reveal key={destination.name} delay={index * 0.06} className={featuredClass}>
-                <article className="group relative h-full overflow-hidden rounded-4xl border border-(--color-line) bg-black shadow-(--shadow-card)">
+                <article className={`group relative overflow-hidden rounded-4xl border border-(--color-line) bg-black shadow-(--shadow-card) ${destination.featured ? "min-h-[520px] lg:min-h-[600px]" : "min-h-72 lg:min-h-80"}`}>
                   <Image
                     src={destination.image}
                     alt={`${destination.name} чиглэлийн зураг`}
